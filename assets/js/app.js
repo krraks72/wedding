@@ -35,6 +35,7 @@
       Init.initializeSlick();
       Init.hamburgerMenu();
       Init.countdownInit(".countdown", "2024/08/01");
+      Init.rsvpFormSubmit();
     },
     w: function (e) {
       this._window.on("load", Init.l).on("scroll", Init.res);
@@ -246,6 +247,52 @@
              $('.icon-arrow').toggleClass('open');
         });
       }
+    },
+    rsvpFormSubmit: function () {
+      var rsvpForm = document.getElementById("rsvp-form");
+      if (!rsvpForm) {
+        return;
+      }
+
+      var feedback = document.getElementById("rsvp-feedback");
+
+      rsvpForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        var data = new FormData(rsvpForm);
+        var payload = {
+          name: data.get("name"),
+          email: data.get("email"),
+          guests: data.get("Number_Of_Guests"),
+          mealPreference: data.get("Meal_Preferences"),
+          attending: data.get("radio") === "1",
+        };
+
+        try {
+          var response = await fetch("/api/rsvps.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          var result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.message || "No se pudo guardar la confirmación.");
+          }
+
+          if (feedback) {
+            feedback.textContent = "✅ Tu confirmación fue enviada correctamente.";
+          }
+          rsvpForm.reset();
+        } catch (error) {
+          if (feedback) {
+            feedback.textContent = "❌ " + error.message;
+          }
+        }
+      });
     },
     countdownInit: function (countdownSelector, countdownTime) {
       var eventCounter = $(countdownSelector);

@@ -47,21 +47,21 @@
                             <div class="collapse navbar-collapse justify-content-between" id="mynavbar-3">
                                 <div class="col-lg-5">
                                     <ul class="navbar-nav mainmenu">
-                                        <li class="menu-item"><a href="index.html#about">ABOUT US</a></li>
-                                        <li class="menu-item"><a href="index.html#story">STORY</a></li>
-                                        <li class="menu-item"><a href="index.html#gallery">GALLERY</a></li>
+                                        <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
+                                        <li class="menu-item"><a href="index.php#story">STORY</a></li>
+                                        <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="text-center">
-                                        <a class="navbar-brand" href="index.html"><img alt="logo" src="assets/media/logo.png"></a>
+                                        <a class="navbar-brand" href="index.php"><img alt="logo" src="assets/media/logo.png"></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-5 ">
                                     <ul class="navbar-nav mainmenu justify-content-end">
-                                        <li class="menu-item"><a href="index.html#rspv">RSVP</a></li>
-                                        <li class="menu-item"><a href="index.html#events">EVENTS</a></li>
-                                        <li class="menu-item"><a href="invitation.html">INVITATION</a></li>
+                                        <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
+                                        <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
+                                        <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                     <div class="container-fluid">
                         <div class="mobile-menu">
                             <div>
-                                <a class="navbar-brand" href="index.html"><img alt=""  src="./assets/media/logo.png"></a>
+                                <a class="navbar-brand" href="index.php"><img alt=""  src="./assets/media/logo.png"></a>
                             </div>
                             <div class="hamburger-menu">
                                 <div class="bar"></div>	
@@ -80,13 +80,13 @@
                         </div>
                         <nav class="mobile-navar d-xl-none">
                             <ul>
-                                <li class="menu-item"><a href="index.html#about">ABOUT US</a></li>
-                                <li class="menu-item"><a href="index.html#story">STORY</a></li>
-                                <li class="menu-item"><a href="index.html#gallery">GALLERY</a></li>
-                                <li class="menu-item"><a href="index.html#rspv">RSVP</a></li>
-                                <li class="menu-item"><a href="index.html#events">EVENTS</a></li>
-                                <li class="menu-item"><a href="index.html#blogs">Blogs</a></li>
-                                <li class="menu-item"><a href="invitation.html">INVITATION</a></li>
+                                <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
+                                <li class="menu-item"><a href="index.php#story">STORY</a></li>
+                                <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
+                                <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
+                                <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
+                                <li class="menu-item"><a href="index.php#blogs">Blogs</a></li>
+                                <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
                             </ul>    
                         </nav>
                     </div>
@@ -148,7 +148,7 @@
                                         <div id="reply1" class="accordion-collapse collapse write-reply" data-bs-parent="#accordionExample">
                                             <div class="write-comment-box">
                                                 <img src="assets/media/users/image-2.png" alt="">
-                                                <form action="blog-detail.html">
+                                                <form action="blog-detail.php">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control p-0 border-0" name="search" required placeholder="Write your comment">
                                                         <button type="submit">Post</button>
@@ -170,7 +170,7 @@
                                         <div id="reply2" class="accordion-collapse collapse write-reply" data-bs-parent="#accordionExample">
                                             <div class="write-comment-box">
                                                 <img src="assets/media/users/image-2.png" alt="">
-                                                <form action="blog-detail.html">
+                                                <form action="blog-detail.php">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control p-0 border-0" name="search" required placeholder="Write your comment">
                                                         <button type="submit">Post</button>
@@ -192,7 +192,7 @@
                                         <div id="reply3" class="accordion-collapse collapse write-reply" data-bs-parent="#accordionExample">
                                             <div class="write-comment-box">
                                                 <img src="assets/media/users/image-2.png" alt="">
-                                                <form action="blog-detail.html">
+                                                <form action="blog-detail.php">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control p-0 border-0" name="search" required placeholder="Write your comment">
                                                         <button type="submit">Post</button>
@@ -204,7 +204,7 @@
                                 </div>
                                 <div class="comment-form">
                                     <h3 class="heading-title mb-32">LEAVE A COMMENT</h3>
-                                    <form action="blog-detail.html">
+                                    <form action="blog-detail.php">
                                         <div class="mb-24">
                                             <textarea  name="comment" class="form-control" rows="3" required placeholder="Write Your Comments..."></textarea>
                                         </div>
@@ -235,7 +235,7 @@
                 <!-- footer Area start -->
                 <section class="footer">
                     <div class="container-fluid">
-                        <a href="index.html"><img src="assets/media/logo.png" alt="" class="logo"></a>
+                        <a href="index.php"><img src="assets/media/logo.png" alt="" class="logo"></a>
                         <h2>Thank You</h2>
                     </div>
                 </section>

@@ -47,21 +47,21 @@
                             <div class="collapse navbar-collapse justify-content-between" id="mynavbar-3">
                                 <div class="col-lg-5">
                                     <ul class="navbar-nav mainmenu">
-                                        <li class="menu-item"><a href="index.html#about">ABOUT US</a></li>
-                                        <li class="menu-item"><a href="index.html#story">STORY</a></li>
-                                        <li class="menu-item"><a href="index.html#gallery">GALLERY</a></li>
+                                        <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
+                                        <li class="menu-item"><a href="index.php#story">STORY</a></li>
+                                        <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="text-center">
-                                        <a class="navbar-brand" href="index.html"><img alt="logo" src="assets/media/logo.png"></a>
+                                        <a class="navbar-brand" href="index.php"><img alt="logo" src="assets/media/logo.png"></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-5 ">
                                     <ul class="navbar-nav mainmenu justify-content-end">
-                                        <li class="menu-item"><a href="index.html#rspv">RSVP</a></li>
-                                        <li class="menu-item"><a href="index.html#events">EVENTS</a></li>
-                                        <li class="menu-item"><a href="invitation.html" class="active">INVITATION</a></li>
+                                        <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
+                                        <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
+                                        <li class="menu-item"><a href="invitation.php" class="active">INVITATION</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                     <div class="container-fluid">
                         <div class="mobile-menu">
                             <div>
-                                <a class="navbar-brand" href="index.html"><img alt=""  src="./assets/media/logo.png"></a>
+                                <a class="navbar-brand" href="index.php"><img alt=""  src="./assets/media/logo.png"></a>
                             </div>
                             <div class="hamburger-menu">
                                 <div class="bar"></div>	
@@ -80,13 +80,13 @@
                         </div>
                         <nav class="mobile-navar d-xl-none">
                             <ul>
-                                <li class="menu-item"><a href="index.html#about">ABOUT US</a></li>
-                                <li class="menu-item"><a href="index.html#story">STORY</a></li>
-                                <li class="menu-item"><a href="index.html#gallery">GALLERY</a></li>
-                                <li class="menu-item"><a href="index.html#rspv">RSVP</a></li>
-                                <li class="menu-item"><a href="index.html#events">EVENTS</a></li>
-                                <li class="menu-item"><a href="index.html#blogs">Blogs</a></li>
-                                <li class="menu-item"><a href="invitation.html" class="active">INVITATION</a></li>
+                                <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
+                                <li class="menu-item"><a href="index.php#story">STORY</a></li>
+                                <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
+                                <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
+                                <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
+                                <li class="menu-item"><a href="index.php#blogs">Blogs</a></li>
+                                <li class="menu-item"><a href="invitation.php" class="active">INVITATION</a></li>
                             </ul>    
                         </nav>
                     </div>
@@ -119,7 +119,7 @@
                             </li>
                         </ul>
                         <h6 class="mb-32 address">Clark Hall Main Bolouward, London</h6>
-                        <a href="index.html#rspv" class="cus-btn light">Reservation</a>
+                        <a href="index.php#rspv" class="cus-btn light">Reservation</a>
                     </div>
                 </section>
                 <!-- Invitation Area end -->

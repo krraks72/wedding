@@ -54,14 +54,14 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="text-center">
-                                        <a class="navbar-brand" href="index.html"><img alt="logo" src="assets/media/logo.png"></a>
+                                        <a class="navbar-brand" href="index.php"><img alt="logo" src="assets/media/logo.png"></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-5 ">
                                     <ul class="navbar-nav mainmenu justify-content-end">
                                         <li class="menu-item"><a href="#rspv">RSVP</a></li>
                                         <li class="menu-item"><a href="#events">EVENTS</a></li>
-                                        <li class="menu-item"><a href="invitation.html">INVITATION</a></li>
+                                        <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                     <div class="container-fluid">
                         <div class="mobile-menu">
                             <div>
-                                <a class="navbar-brand" href="index.html"><img alt=""  src="./assets/media/logo.png"></a>
+                                <a class="navbar-brand" href="index.php"><img alt=""  src="./assets/media/logo.png"></a>
                             </div>
                             <div class="hamburger-menu">
                                 <div class="bar"></div>	
@@ -86,7 +86,7 @@
                                 <li class="menu-item"><a href="#rspv">RSVP</a></li>
                                 <li class="menu-item"><a href="#events">EVENTS</a></li>
                                 <li class="menu-item"><a href="#blogs">Blogs</a></li>
-                                <li class="menu-item"><a href="invitation.html">INVITATION</a></li>
+                                <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
                             </ul>    
                         </nav>
                     </div>
@@ -277,7 +277,7 @@
                         <div class="content-block">
                             <h3 class="mb-8">Will You Attend?</h3>
                             <p class="mb-32">Please reserve before Jan 5th, 2024</p>
-                            <form action="index.html">
+                            <form id="rsvp-form">
                                 <div class="mb-24">
                                     <input type="text" name="name" class="form-control" required placeholder="Your Name">
                                 </div>
@@ -306,7 +306,8 @@
                                     <label for="no"><input id="no" type="radio" name="radio" class="radio" value="2">Sorry, I can’t come</label>
                                 </div>
                                 <div class="text-center">
-                                    <button class="cus-btn dark">Send An Inquiry</button>
+                                    <button type="submit" class="cus-btn dark">Send An Inquiry</button>
+                                    <p id="rsvp-feedback" class="mt-3" aria-live="polite"></p>
                                 </div>
                             </form>
                         </div>
@@ -389,42 +390,42 @@
                                     <h6 class="mb-16">10 JAN, 2024</h6>
                                     <h3 class="mb-16 color-black">Two Hearts Become One: John and Sofie Celebrate Their Marriage</h3>
                                     <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.html" class="cus-btn dark">Read More</a>
+                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
                                 </div>
                                 <div class="blog-card">
                                     <img class="mb-16" src="assets/media/blogs/Image-1.png" alt="">
                                     <h6 class="mb-16">11 JAN, 2024</h6>
                                     <h3 class="mb-16 color-black">Love in Bloom: John and Sofie Embark on Their New Chapter</h3>
                                     <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.html" class="cus-btn dark">Read More</a>
+                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
                                 </div>
                                 <div class="blog-card">
                                     <img class="mb-16" src="assets/media/blogs/Image-2.png" alt="">
                                     <h6 class="mb-16">12 JAN, 2024</h6>
                                     <h3 class="mb-16 color-black">Celebrating Love's Journey: John and Sofie Say 'Forever'</h3>
                                     <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.html" class="cus-btn dark">Read More</a>
+                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
                                 </div>
                                 <div class="blog-card">
                                     <img class="mb-16" src="assets/media/blogs/Image.png" alt="">
                                     <h6 class="mb-16">10 JAN, 2024</h6>
                                     <h3 class="mb-16 color-black">Two Hearts Become One: John and Sofie Celebrate Their Marriage</h3>
                                     <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.html" class="cus-btn dark">Read More</a>
+                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
                                 </div>
                                 <div class="blog-card">
                                     <img class="mb-16" src="assets/media/blogs/Image-1.png" alt="">
                                     <h6 class="mb-16">11 JAN, 2024</h6>
                                     <h3 class="mb-16 color-black">Love in Bloom: John and Sofie Embark on Their New Chapter</h3>
                                     <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.html" class="cus-btn dark">Read More</a>
+                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
                                 </div>
                                 <div class="blog-card">
                                     <img class="mb-16" src="assets/media/blogs/Image-2.png" alt="">
                                     <h6 class="mb-16">12 JAN, 2024</h6>
                                     <h3 class="mb-16 color-black">Celebrating Love's Journey: John and Sofie Say 'Forever'</h3>
                                     <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.html" class="cus-btn dark">Read More</a>
+                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -437,7 +438,7 @@
                 <!-- footer Area start -->
                 <section class="footer">
                     <div class="container-fluid">
-                        <a href="index.html"><img src="assets/media/logo.png" alt="" class="logo"></a>
+                        <a href="index.php"><img src="assets/media/logo.png" alt="" class="logo"></a>
                         <h2>Thank You</h2>
                     </div>
                 </section>
