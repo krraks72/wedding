@@ -1,0 +1,108 @@
+.coming-soon{
+    background: url(../media/bg/coming-soon.png) no-repeat left;
+    background-size: cover;
+    padding-left: 12%;
+    border: 2px solid $accent-1;
+    border-left: 0;
+    border-right: 0;
+    @include media-query(1599px) {
+        padding-left: 96px;
+    }
+    @include media-query(1399px) {
+        padding-left: 15px;
+    }
+    @include media-query(991px) {
+        padding-left: 0;
+    }
+    .content{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 222px;
+        @include media-query(1599px) {
+            gap: 32px;
+        }
+        @include media-query(991px) {
+            justify-content: center;
+            flex-direction: column;
+            gap: 0px;
+            align-items: normal;
+        }
+        .text{
+            text-align: center;
+            @include media-query(991px) {
+                padding: 48px;
+            }
+            @include media-query(575px) {
+                padding: 32px 16px;
+            }
+            @include media-query(492px) {
+                padding: 32px 0;
+            }
+            .date-text{
+                font-family: $font-sec;
+                font-size: 32px;
+                font-weight: 400;
+                line-height: 120%; /* 38.4px */
+                letter-spacing: -0.32px;
+                text-transform: uppercase;  
+                margin-bottom: 24px;    
+                @include media-query(492px) {
+                    font-size: 24px;
+                }     
+                @include media-query(400px) {
+                    font-size: 20px;
+                }     
+            }
+            h6{
+                font-family: $font-petit;
+                font-size: 36px;
+                font-weight: 400;
+                line-height: 120%; 
+                letter-spacing: -0.36px;
+                margin-bottom: 24px;
+                color: $medium-black;
+                @include media-query(492px) {
+                    font-size: 32px;
+                } 
+                @include media-query(400px) {
+                    font-size: 24px;
+                }  
+            }
+            h3{
+                font-family: $font-sec;
+                font-size: 64px;
+                font-weight: 400;
+                line-height: 120%; /* 76.8px */
+                letter-spacing: -0.64px;
+                text-transform: uppercase;      
+                margin-bottom: 24px;  
+                @include media-query(492px) {
+                    font-size: 48px;
+                }  
+                @include media-query(400px) {
+                    font-size: 36px;
+                }  
+            }
+            p{
+                font-size: 24px;
+                font-weight: 400;
+                line-height: 120%; /* 28.8px */
+                letter-spacing: -0.24px;
+                text-transform: capitalize;  
+                @include media-query(492px) {
+                    font-size: 20px;
+                }      
+                @include media-query(400px) {
+                    font-size: 16px;
+                }     
+            }
+        }
+        img{
+            border-radius: 390px 0px 0px 380px;
+            @include media-query(991px) {
+                margin-left: 10%;
+            }
+        }
+    }
+}

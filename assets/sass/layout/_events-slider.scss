@@ -1,0 +1,114 @@
+.events-slider{
+    .item{
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding: 22px 0;
+        border: 2px solid #C8A898;
+        border-left: 0;
+        border-right: 0;
+        @include media-query(575px) {
+            padding: 48px 0px;
+        }
+        .slide-content-block{
+            background-color: #F8F8FF;
+            background: url(../media/bg/slider-text.png) no-repeat;
+            background-size: cover;
+            border-radius: 400px;
+            padding: 184px 0px;
+            width: 100%;
+            text-align: center;
+            @include media-query(575px) {
+                border-radius: 200px;
+                padding: 100px 16px;
+                margin: 0 32px;
+                width: auto;
+            }
+            @include media-query(400px) {
+                border-radius: 100px;
+                padding: 64px 16px;
+                margin: 0 16px;
+            }
+            h4{
+                color: $black;
+                font-family: $font-sec;
+                font-size: 48px;
+                font-weight: 400;
+                line-height: 120%; /* 57.6px */
+                letter-spacing: -0.48px;
+                @include media-query(575px) {
+                    font-size: 42px;
+                }               
+                @include media-query(492px) {
+                    font-size: 36px;
+                }               
+            }
+            h6{
+                font-size: 24px;
+                font-weight: 400;
+                line-height: 120%; /* 28.8px */
+                letter-spacing: -0.24px;
+                @include media-query(575px) {
+                    font-size: 22px;
+                }
+                @include media-query(492px) {
+                    font-size: 20px;
+                }
+            }
+            a{
+                text-decoration: underline;
+            }
+        }
+        &.slide-1{
+            background: url(../media/bg/event-slide-1.png);
+        }
+        &.slide-2{
+            background: url(../media/bg/event-slide-2.png);
+        }
+        &.slide-3{
+            background: url(../media/bg/event-slide-3.png);
+        }
+    }
+    .slick-prev,
+    .slick-next{
+        &::after{
+            font-family: $font-awesome;
+            position: absolute;
+            height: 55px;
+            width: 55px;
+            background: $accent-1;
+            border-radius: 40px;
+            font-size: 36px;
+            line-height: 56px;
+            color: $white;
+            z-index: 10; 
+            top: 45% !important;
+            @include media-query(1199px) {
+                height: 36px;
+                width: 36px;
+                font-size: 24px;
+                line-height: 32px;
+                font-size: 22px;
+                line-height: 36px;
+            }
+        }
+        }
+        .slick-prev{
+        &::after{
+            content: '\f053';
+            left: 32px !important;
+            @include media-query(1199px) {
+                left: 16px;
+            }
+        }
+        }
+        .slick-next{
+        &::after{
+            content: "\f054";
+            right: 32px !important;
+            @include media-query(1199px) {
+                right: 16px;
+            }
+        }
+    }
+}

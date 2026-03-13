@@ -1,0 +1,197 @@
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+ul.list-style,
+ol.list-style {
+  padding: 0;
+}
+
+ul.list-style li::marker,
+ol.list-style li::marker {
+  color: $accent-1;
+}
+
+.unstyled {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.container,
+.container-fluid{
+  @media (min-width: 1399px) {
+    padding: 0 96px;
+    width: 100%;
+  }
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.row {
+  > [class*="col"] {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+}
+
+
+/*-------------------------
+    Typography
+-------------------------*/
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary;
+  color: $primary;
+  background-color: $white-2;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+  height: 100%;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  @media (min-width: 768px) and (max-width: 991px) {
+    background-size: cover !important;
+  }
+  @media (max-width: 1199px) {
+    font-size: 16px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+address,
+p,
+pre,
+blockquote,
+table,
+hr {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  a {
+    color: inherit;
+  }
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: unset;
+  &:hover {
+    color: $accent-1;
+    transition: $transition;
+  }
+}
+span {
+  display: inline-block;
+}
+b,
+strong {
+  font-family: $font-primary;
+}
+
+
+
+/* ------------------------------------------------------------- *
+ * Custom scrollbar style
+/* ------------------------------------------------------------- */
+
+.tt-custom-scrollbar {
+	overflow-y: auto;
+}
+
+/* Works on Firefox */
+.tt-custom-scrollbar,
+.tt-sliding-sidebar-inner,
+.tt-sidebar {
+	scrollbar-width: thin;
+	scrollbar-color: #555 #2a2a2a;
+}
+select {
+	scrollbar-width: thin;
+	scrollbar-color: #666 #2a2a2a;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.tt-custom-scrollbar::-webkit-scrollbar,
+.tt-sliding-sidebar-inner::-webkit-scrollbar,
+.tt-sidebar::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+select::-webkit-scrollbar {
+	width: 10px;
+}
+.tt-custom-scrollbar::-webkit-scrollbar-track,
+.tt-sliding-sidebar-inner::-webkit-scrollbar-track,
+.tt-sidebar::-webkit-scrollbar-track,
+select::-webkit-scrollbar-track {
+	background: #2a2a2a;
+}
+.tt-custom-scrollbar::-webkit-scrollbar-thumb,
+.tt-sliding-sidebar-inner::-webkit-scrollbar-thumb,
+.tt-sidebar::-webkit-scrollbar-thumb {
+	background-color: #555;
+	border-radius: 50px;
+}
+select::-webkit-scrollbar-thumb {
+	background-color: #666;
+	border-radius: 50px;
+}
+
+
+/* ------------------------------------------------------------- *
+ * Smooth Scrollbar
+ * Source: https://github.com/idiotWu/smooth-scrollbar/
+/* ------------------------------------------------------------- */
+
+/* Hide default scrollbar */
+body:not(.is-mobile).ui-smooth-scroll {
+	overflow: hidden;
+}
+
+/* Scroll content (added if <body> contain class "ui-smooth-scroll". Disabled on mobile devices!) */
+body:not(.is-mobile).ui-smooth-scroll #scroll-container { 
+	width: auto;
+	height: 100vh;
+	overflow: auto;
+	margin: 0;
+}
+
+/* Styling scrollbar */
+.scrollbar-track {
+	background: transparent !important;
+	z-index: 99999 !important;
+}
+.scrollbar-track:hover {
+	/*background: rgba(222, 222, 222, 0.1) !important;*/
+}
+.scrollbar-thumb {
+	background: #DDD !important;
+	opacity: .5;
+	transition: opacity 0.2s ease-in-out;
+}
+.scrollbar-track:hover .scrollbar-thumb {
+	opacity: .5;
+}

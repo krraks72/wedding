@@ -1,0 +1,101 @@
+/*---------------------------------------------"
+// Template Name: Audio Beats
+// Template URL: https://techpedia.co.uk/template/audiobeats
+// Description: Audio Beats Innovative Audio Music Theme
+// Version: 1.0.0
+
+===============================================   
+STYLE SHEET INDEXING
+|
+|___ Fonts
+|___ Variables
+|___ Reset Styles
+|___ Responsive
+|___ Spacing
+|___ Helper Classes
+|___ Buttons
+|___ Headings
+|___ Layout Styles
+|___ END STYLE SHEET INDEXING
+
+--------------------------------------------*/
+
+/*-------------------------
+    Fonts
+-------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Petit+Formal+Script&display=swap');
+
+/*-------------------------
+    Variables
+-------------------------*/
+$font-primary: 'DM Sans', sans-serif;
+$font-sec: 'Old Standard TT', serif;
+$font-petit: 'Petit Formal Script', cursive;
+$font-awesome: "Font Awesome 5 Pro";
+$transition: all 0.5s ease;
+$accent-1: #C8A898;
+$accent-2: #EFE9E6;
+$primary: #6F6F6F;
+$white: #F8F8FF;
+$white-2: #F9F9F9;
+$light-black: #212627;
+$black: #212121;
+$medium-black: #16191A;
+$lightest-gray: #ECECF2;
+$light-gray: #C6CBD2;
+$medium-gray: #9EA2A8;
+$dark-gray: #7A7F85;
+
+/*-------------------------
+    Reset Styles
+-------------------------*/
+@import "basic/basic";
+
+/*-------------------------
+Helpers
+-------------------------*/
+@import "helpers/classes";
+
+@import "helpers/mixin";
+
+@import "helpers/spacing";
+
+/*-------------------------
+Elements
+-------------------------*/
+@import "elements/preloader";
+
+@import "elements/buttons";
+
+@import "elements/form";
+
+@import "elements/heading";
+
+@import "elements/countdown";
+
+/*-------------------------
+  layouts
+-------------------------*/
+@import "layout/header";
+
+@import "layout/footer";
+
+@import "layout/hero-banner";
+
+@import "layout/about";
+
+@import "layout/story";
+
+@import "layout/gallery";
+
+@import "layout/blogs";
+
+@import "layout/coming-soon";
+
+@import "layout/events-slider";
+
+@import "layout/reservation";
+
+@import "layout/invitation";
+
+@import "layout/page-title";

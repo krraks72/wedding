@@ -1,0 +1,113 @@
+.story{
+    position: relative;
+    &::before{
+        content: '';
+        position: absolute;
+        left: calc(50% - 2px );
+        width: 2px;
+        height: 100%;
+        background: $accent-1;
+        z-index: 10;
+        @include media-query(767px) {
+            display: none;
+        }
+    }
+    .content{
+        padding-top: 24px;
+        .block{
+            position: relative;
+            padding: 24px 0;
+            @include media-query(767px) {
+               padding: 32px 0px;
+            }
+            .heart-icon{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 15;
+                @include media-query(1199px) {
+                    height: 40px;
+                    width: 40px;
+                }
+                @include media-query(767px) {
+                    display: none;
+                }
+            }
+            .block-img{
+                padding-right: 40px;
+                @include media-query(767px) {
+                    padding-right: 0;
+                }
+            }
+            .text-block{
+                margin: 0 auto;
+                max-width: 556px;
+                padding-left: 40px;
+                height: 100%;
+                display: grid;
+                align-content: center;
+                @include media-query(767px) {
+                    padding-left: 0;
+                    padding-top: 24px;
+                }
+                h6{
+                    color: $accent-1;
+                    font-size: 24px;
+                    font-weight: 400;
+                    line-height: 120%; /* 28.8px */
+                    letter-spacing: -0.24px;
+                    text-transform: uppercase;
+                    margin-bottom: 16px;
+                    @include short-query(992px , 1199px) {
+                        font-size: 20px;
+                    }
+                    @include short-query(767px , 991px) {
+                        font-size: 18px;
+                        margin-bottom: 8px;
+                    }
+                    @include media-query(575px) {
+                        font-size: 16px;
+                        margin-bottom: 8px;
+                    }
+                }
+                h4{
+                    font-family: $font-sec;
+                    font-size: 48px;
+                    font-weight: 400;
+                    line-height: 120%; /* 57.6px */
+                    letter-spacing: -0.48px;
+                    margin-bottom: 24px;
+                    @include short-query(992px , 1199px) {
+                        font-size: 36px;
+                    }
+                    @include short-query(767px , 991px) {
+                        font-size: 32px;
+                        margin-bottom: 16px;
+                    }
+                    @include media-query(575px) {
+                        font-size: 28px;
+                        margin-bottom: 12px;
+                    }
+                }
+                
+            }
+            &.st-2{
+                .block-img{
+                    padding-right: 0px;
+                    padding-left: 40px;
+                    @include media-query(767px) {
+                        padding-left: 0;
+                    }
+                }
+                .text-block{
+                    padding-left: 0px;
+                    padding-right: 40px;
+                    @include media-query(767px) {
+                        padding-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

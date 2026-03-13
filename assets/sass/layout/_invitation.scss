@@ -1,0 +1,96 @@
+.invitation{
+  padding-top: 125px;
+  background: url(../media/bg/invitation.png) no-repeat center;
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+  .content-block{
+    text-align: center;
+    @include media-query(492px) {
+        padding: 48px 16px;
+    }    
+    h1{
+        font-family: $font-petit;
+        font-size: 90px;
+        font-weight: 400;
+        line-height: 120%; /* 108px */
+        letter-spacing: -1.8px; 
+        @include media-query(991px) {
+            font-size: 80px;
+        }
+        @include media-query(767px) {
+            font-size: 64px;
+        }
+        @include media-query(492px) {
+            font-size: 48px;
+        }      
+    }
+    h6{
+        font-family: $font-sec;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 120%; /* 38.4px */
+        letter-spacing: -0.32px;
+        text-transform: uppercase; 
+        @include media-query(991px) {
+            font-size: 28px;
+        }
+        @include media-query(767px) {
+            font-size: 24px;
+        }
+        @include media-query(492px) {
+            font-size: 28px;
+        }        
+    }
+    .text{
+        font-family: $font-petit;
+        color: $black;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 120%; /* 43.2px */
+        letter-spacing: -0.36px;     
+        @include media-query(991px) {
+            font-size: 34px;
+        }
+        @include media-query(767px) {
+            font-size: 30px;
+        }
+        @include media-query(492px) {
+            font-size: 24px;
+        }    
+    }
+    h3{
+        font-family: $font-sec;
+        font-size: 64px;
+        font-weight: 400;
+        line-height: 120%; /* 76.8px */
+        letter-spacing: -0.64px;
+        text-transform: uppercase;   
+        @include media-query(991px) {
+            font-size: 58px;
+        }
+        @include media-query(767px) {
+            font-size: 48px;
+        }
+        @include media-query(492px) {
+            font-size: 40px;
+        }      
+    }
+    .address{
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 120%; /* 28.8px */
+        letter-spacing: -0.24px;
+        text-transform: capitalize;  
+        @include media-query(991px) {
+            font-size: 22px;
+        }
+        @include media-query(767px) {
+            font-size: 20px;
+        }
+        @include media-query(492px) {
+            font-size: 20px;
+        }        
+    }
+  }
+}

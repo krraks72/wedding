@@ -1,0 +1,35 @@
+.footer{
+    background-color: $accent-2;
+    text-align: center;
+    padding: 105px 0;
+    @media(max-width: 992px) {
+        padding: 90px 0;
+    }
+    @media(max-width: 767px) {
+        padding: 80px 0;
+    }
+    @media(max-width: 575px) {
+        padding: 72px 16px;
+    }   
+    .logo{
+        margin-bottom: 64px;
+    }
+    h2{
+        color: $black;
+        text-align: center;
+        font-family: $font-petit;
+        font-size: 90px;
+        font-weight: 400;
+        line-height: 120%; /* 108px */
+        letter-spacing: -1.8px;   
+        @media(max-width: 992px) {
+            font-size: 84px;
+        }
+        @media(max-width: 767px) {
+            font-size: 72px;
+        }
+        @media(max-width: 575px) {
+            font-size: 64px;
+        }   
+    }
+}
