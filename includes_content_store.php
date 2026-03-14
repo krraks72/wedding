@@ -29,6 +29,14 @@ function getContentPdo(): PDO
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
 
+    ensureContentBlocksTable($pdo);
+    ensureRsvpsTable($pdo);
+
+    return $pdo;
+}
+
+function ensureContentBlocksTable(PDO $pdo): void
+{
     $pdo->exec(
         'CREATE TABLE IF NOT EXISTS content_blocks (
             content_key VARCHAR(120) PRIMARY KEY,
@@ -36,8 +44,26 @@ function getContentPdo(): PDO
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
+}
 
-    return $pdo;
+function ensureRsvpsTable(PDO $pdo): void
+{
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS rsvps (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(120) NOT NULL,
+            email VARCHAR(190) NOT NULL,
+            guests INT NULL,
+            meal_preference VARCHAR(100) NULL,
+            attending TINYINT(1) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
+    );
+}
+
+function fetchRsvps(PDO $pdo): array
+{
+    return $pdo->query('SELECT * FROM rsvps ORDER BY id DESC')->fetchAll();
 }
 
 function defaultContentBlocks(): array
@@ -118,6 +144,50 @@ function defaultContentBlocks(): array
         'blog_3_title' => "Celebrating Love's Journey: John and Sofie Say 'Forever'",
         'blog_read_more' => 'Read More',
         'footer_thanks' => 'Thank You',
+        'image_logo' => 'assets/media/logo.png',
+        'image_hero_left' => 'assets/media/banner/banner-img-1.png',
+        'image_hero_right' => 'assets/media/banner/banner-img-2.png',
+        'image_about_groom' => 'assets/media/about/grrom.png',
+        'image_about_bride' => 'assets/media/about/bride.png',
+        'image_countdown' => 'assets/media/coming-soon/Image.png',
+        'image_story_1' => 'assets/media/story/s-1.png',
+        'image_story_2' => 'assets/media/story/s-2.png',
+        'image_story_3' => 'assets/media/story/s-3.png',
+        'image_gallery_1' => 'assets/media/gallery/Image Frame.png',
+        'image_gallery_2' => 'assets/media/gallery/Image-2.png',
+        'image_gallery_3' => 'assets/media/gallery/Image-3.png',
+        'image_gallery_4' => 'assets/media/gallery/Image-4.png',
+        'image_gallery_5' => 'assets/media/gallery/Image-5.png',
+        'image_gallery_6' => 'assets/media/gallery/Image.png',
+        'image_gallery_7' => 'assets/media/gallery/Image-1.png',
+        'image_blog_1' => 'assets/media/blogs/Image.png',
+        'image_blog_2' => 'assets/media/blogs/Image-1.png',
+        'image_blog_3' => 'assets/media/blogs/Image-2.png',
+    ];
+}
+
+function imageContentKeys(): array
+{
+    return [
+        'image_logo',
+        'image_hero_left',
+        'image_hero_right',
+        'image_about_groom',
+        'image_about_bride',
+        'image_countdown',
+        'image_story_1',
+        'image_story_2',
+        'image_story_3',
+        'image_gallery_1',
+        'image_gallery_2',
+        'image_gallery_3',
+        'image_gallery_4',
+        'image_gallery_5',
+        'image_gallery_6',
+        'image_gallery_7',
+        'image_blog_1',
+        'image_blog_2',
+        'image_blog_3',
     ];
 }
 
