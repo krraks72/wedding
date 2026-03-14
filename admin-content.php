@@ -181,11 +181,6 @@ try {
             <a href="index.php">Ver sitio</a>
             <a href="admin-content.php?logout=1">Cerrar sesión</a>
         </div>
-        <div class="links">
-            <a href="admin-guests.php">Ver invitados</a>
-            <a href="index.php">Ver sitio</a>
-            <a href="admin-content.php?logout=1">Cerrar sesión</a>
-        </div>
     </div>
 
     <?php if ($message !== null): ?>
