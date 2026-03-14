@@ -1,463 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Audiobeats HTML5 Template">
+declare(strict_types=1);
 
-        <title>Blessed wedding template</title>
+require_once __DIR__ . '/includes_content_store.php';
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="assets/media/favicon-light.png">
+$defaults = defaultContentBlocks();
 
-        <!-- All CSS files -->
-        <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/vendor/slick.css">
-        <link rel="stylesheet" href="assets/css/vendor/font-awesome.css">
-        <link rel="stylesheet" href="assets/css/vendor/slick-theme.css">
-        <link rel="stylesheet" href="assets/css/app.css">
-    </head>
+try {
+    $pdo = getContentPdo();
+    seedContentBlocks($pdo, $defaults);
+    $content = array_merge($defaults, fetchContentBlocks($pdo));
+} catch (Throwable $exception) {
+    $content = $defaults;
+}
 
-    <body class="ui-smooth-scroll">
-        <!-- Preloader -->
-        <div id="preloader">
-            <div class="contain">
-                <div class="loader">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="shadow"></div>
-            </div>
-        </div>
-        
-        <!-- Back To Top Start -->
-        <a href="#main-wrapper" id="backto-top" class="back-to-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-        <!-- Main Wrapper Start -->
-        <div id="main-wrapper" class="main-wrapper overflow-hidden">
-            <div id="scroll-container">
-                <!-- Header Area Start -->
-                <header class="large-screens">
-                    <div class="container-fluid">
-                        <nav class="navbar navbar-expand-lg">
-                            <div class="collapse navbar-collapse justify-content-between" id="mynavbar-3">
-                                <div class="col-lg-5">
-                                    <ul class="navbar-nav mainmenu">
-                                        <li class="menu-item"><a href="#about">ABOUT US</a></li>
-                                        <li class="menu-item"><a href="#story">STORY</a></li>
-                                        <li class="menu-item"><a href="#gallery">GALLERY</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="text-center">
-                                        <a class="navbar-brand" href="index.php"><img alt="logo" src="assets/media/logo.png"></a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 ">
-                                    <ul class="navbar-nav mainmenu justify-content-end">
-                                        <li class="menu-item"><a href="#rspv">RSVP</a></li>
-                                        <li class="menu-item"><a href="#events">EVENTS</a></li>
-                                        <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </header>
-                <header class="small-screen">
-                    <div class="container-fluid">
-                        <div class="mobile-menu">
-                            <div>
-                                <a class="navbar-brand" href="index.php"><img alt=""  src="./assets/media/logo.png"></a>
-                            </div>
-                            <div class="hamburger-menu">
-                                <div class="bar"></div>	
-                            </div>
-                        </div>
-                        <nav class="mobile-navar d-xl-none">
-                            <ul>
-                                <li class="menu-item"><a href="#about">ABOUT US</a></li>
-                                <li class="menu-item"><a href="#story">STORY</a></li>
-                                <li class="menu-item"><a href="#gallery">GALLERY</a></li>
-                                <li class="menu-item"><a href="#rspv">RSVP</a></li>
-                                <li class="menu-item"><a href="#events">EVENTS</a></li>
-                                <li class="menu-item"><a href="#blogs">Blogs</a></li>
-                                <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
-                            </ul>    
-                        </nav>
-                    </div>
-                </header>
-                <!-- Header Area end -->
+$templatePath = __DIR__ . '/index-content-template.html';
+$template = file_get_contents($templatePath);
+if ($template === false) {
+    http_response_code(500);
+    echo 'No se pudo cargar la plantilla del sitio.';
+    exit;
+}
 
-                <!-- Hero Area start -->
-                <section class="hero-banner">   
-                    <div class="main">
-                        <div class="vertical-lines"></div>
-                        <div class="circle-img left">
-                            <img src="assets/media/banner/banner-img-1.png" alt="">
-                        </div>
-                        <h1 class="title">All You<br>Need<br>Is Love</h1>
-                        <div class="circle-img right">
-                            <img src="assets/media/banner/banner-img-2.png" alt="">
-                        </div>
-                    </div>
-                    <div class="detail-block">
-                        <h3>John and Sofie</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur. Velit vulputate lacus risus scelerisque faucibus eu. Sollicitudin justo imperdiet vitae mattis ipsum arcu nullam odio. Leo sed quis.</p>
-                    </div>
-                    <div class="date">
-                        <h3>Save The Date</h3>
-                        <h3>Nov 6, 2023</h3>
-                    </div>
-                </section>
-                <!-- Hero Area end -->
-                
-                <!-- Main Content Start -->
-                <div class="page-content">
+$replaceMap = [
+    'content="Audiobeats HTML5 Template"' => 'content="' . htmlspecialchars($content['meta_description'], ENT_QUOTES, 'UTF-8') . '"',
+    '<title>Blessed wedding template</title>' => '<title>' . htmlspecialchars($content['page_title'], ENT_QUOTES, 'UTF-8') . '</title>',
+    'ABOUT US' => $content['nav_about'],
+    'STORY' => $content['nav_story'],
+    'GALLERY' => $content['nav_gallery'],
+    'RSVP' => $content['nav_rsvp'],
+    'EVENTS' => $content['nav_events'],
+    'INVITATION' => $content['nav_invitation'],
+    'Blogs' => $content['nav_blogs'],
+    'All You<br>Need<br>Is Love' => $content['hero_title'],
+    'John and Sofie' => $content['hero_couple'],
+    'Lorem ipsum dolor sit amet consectetur. Velit vulputate lacus risus scelerisque faucibus eu. Sollicitudin justo imperdiet vitae mattis ipsum arcu nullam odio. Leo sed quis.' => $content['hero_paragraph'],
+    'Save The Date' => $content['hero_date_label'],
+    'Nov 6, 2023' => $content['hero_date'],
+    'About Us' => $content['about_label'],
+    'Let’s know' => $content['about_title'],
+    'John William' => $content['about_person_1'],
+    'Sophie Alex' => $content['about_person_2'],
+    'Lorem ipsum dolor sit amet consectetur. Cursus dictumst commodo cursus dignissim nunc ut.' => $content['about_paragraph'],
+    'save the date' => $content['countdown_label'],
+    'We are getting married' => $content['countdown_title'],
+    'Days' => $content['count_days'],
+    'Hrs' => $content['count_hours'],
+    'Min' => $content['count_minutes'],
+    'Sec' => $content['count_seconds'],
+    'Clark Hall Main Bolouward, London' => $content['location'],
+    'OUR STORY' => $content['story_label'],
+    'Tale Of Love' => $content['story_title'],
+    '22 JAN, 2021' => $content['story_1_date'],
+    'How we meet' => $content['story_1_title'],
+    'Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa. Bibendum odio quis feugiat erat sit velit. Magnis mi eros ante quis morbi. Ornare urna ultricies quisque id et.' => $content['story_text'],
+    '29 DEC, 2022' => $content['story_2_date'],
+    'He proposed, I said Yes' => $content['story_2_title'],
+    '12 FEB, 2023' => $content['story_3_date'],
+    'Our Engagement Day' => $content['story_3_title'],
+    'Will You Attend?' => $content['rsvp_title'],
+    'Please reserve before Jan 5th, 2024' => $content['rsvp_paragraph'],
+    'Number Of Guests' => $content['rsvp_guest_label'],
+    'Two' => $content['rsvp_guest_two'],
+    'Three' => $content['rsvp_guest_three'],
+    'Four' => $content['rsvp_guest_four'],
+    'Meal Preferences' => $content['rsvp_meal_label'],
+    'Buffet Style' => $content['rsvp_meal_1'],
+    'Food Stations' => $content['rsvp_meal_2'],
+    'Themed Cuisine' => $content['rsvp_meal_3'],
+    'Dessert Only' => $content['rsvp_meal_4'],
+    'Yes, I will be there' => $content['rsvp_attend_yes'],
+    'Sorry, I can’t come' => $content['rsvp_attend_no'],
+    'Send An Inquiry' => $content['rsvp_button'],
+    'OUR Wedding' => $content['events_label'],
+    'When & Where' => $content['events_title'],
+    'The Ceremony' => $content['event_1_title'],
+    'Sunday 10 Jan, 2024' => $content['event_1_date'],
+    '2:00 PM - 4:00 PM' => $content['event_time'],
+    'Clark Hall Main Bolouward,<br>London' => $content['event_address_2_lines'],
+    'See Location' => $content['event_location_button'],
+    'The Reception' => $content['event_2_title'],
+    'Monday 11 Jan, 2024' => $content['event_2_date'],
+    'Tuesday 12 Jan, 2024' => $content['event_3_date'],
+    'OUR Blog' => $content['blogs_label'],
+    'latest news' => $content['blogs_title'],
+    '10 JAN, 2024' => $content['blog_1_date'],
+    'Two Hearts Become One: John and Sofie Celebrate Their Marriage' => $content['blog_1_title'],
+    'Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.' => $content['blog_1_text'],
+    '11 JAN, 2024' => $content['blog_2_date'],
+    'Love in Bloom: John and Sofie Embark on Their New Chapter' => $content['blog_2_title'],
+    '12 JAN, 2024' => $content['blog_3_date'],
+    "Celebrating Love's Journey: John and Sofie Say 'Forever'" => $content['blog_3_title'],
+    'Read More' => $content['blog_read_more'],
+    'Thank You' => $content['footer_thanks'],
+];
 
-                    <!-- About Us Area Start  -->
-                    <section id="about" class="pb-80">
-                        <div class="container-fluid">
-                            <div class="heading-block">
-                                <div class="content-block">
-                                    <h4>About Us</h4>
-                                    <h3>Let’s know</h3>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <img src="assets/media/about/grrom.png" alt="" class="groom-img">
-                                <div class="text">
-                                    <div class="groom-text">
-                                        <h3>John William</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur. Cursus dictumst commodo cursus dignissim nunc ut.</p>
-                                    </div>
-                                    <div class="bride-text">
-                                        <h3>Sophie Alex</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur. Cursus dictumst commodo cursus dignissim nunc ut.</p>
-                                    </div>
-                                </div>
-                                <img src="assets/media/about/bride.png" alt="" class="bride-img">
-                            </div>
-                        </div>
-                    </section>
-                    <!-- About Us Area End  -->
-
-                    <!-- Coming Soon Area Start  -->
-                    <section class="coming-soon">
-                        <div class="content">
-                            <div class="text">
-                                <h5 class="date-text">save the date</h5>
-                                <h6>We are getting married</h6>
-                                <h3>Nov 6, 2023</h3>
-                                <ul class="countdown unstyled">
-                                    <li> 
-                                        <h4 class="number">365</h4>
-                                        <h5 class="number-text">Days</h5> 
-                                    </li>
-                                    <li> 
-                                        <h4 class="number">11</h4>
-                                        <h5 class="number-text">Hrs</h5> 
-                                    </li>
-                                    <li> 
-                                        <h4 class="number">29</h4>
-                                        <h5 class="number-text">Min</h5> 
-                                    </li>
-                                    <li> 
-                                        <h4 class="number">33</h4>
-                                        <h5 class="number-text">Sec</h5> 
-                                    </li>
-                                </ul>
-                                <p>Clark Hall Main Bolouward, London</p>
-                            </div>
-                            <img src="assets/media/coming-soon/Image.png" alt="">
-                        </div>
-                    </section>
-                    <!-- Coming Soon Area End  -->
-
-                    <!-- Story Area Start  -->
-                    <section id="story">
-                        <div class="container-fluid">
-                            <div class="heading-block">
-                                <div class="content-block">
-                                    <h4>OUR STORY</h4>
-                                    <h3>Tale Of Love</h3>
-                                </div>
-                            </div>
-                            <div class="story">
-                                <div class="content">
-                                    <div class="block">
-                                        <img src="assets/media/icons/heart.png" alt="" class="heart-icon">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <img src="assets/media/story/s-1.png" alt="" class="block-img">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-block">
-                                                    <h6>22 JAN, 2021</h6>
-                                                    <h4>How we meet</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa. Bibendum odio quis feugiat erat sit velit. Magnis mi eros ante quis morbi. Ornare urna ultricies quisque id et.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="block st-2">
-                                        <img src="assets/media/icons/heart.png" alt="" class="heart-icon">
-                                        <div class="row">
-                                            <div class="col-md-6 order-md-2">
-                                                <img src="assets/media/story/s-2.png" alt="" class="block-img">
-                                            </div>
-                                            <div class="col-md-6 order-md-1">
-                                                <div class="text-block">
-                                                    <h6>29 DEC, 2022</h6>
-                                                    <h4>He proposed, I said Yes</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa. Bibendum odio quis feugiat erat sit velit. Magnis mi eros ante quis morbi. Ornare urna ultricies quisque id et.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="block pb-0">
-                                        <img src="assets/media/icons/heart.png" alt="" class="heart-icon">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <img src="assets/media/story/s-3.png" alt="" class="block-img">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-block">
-                                                    <h6>12 FEB, 2023</h6>
-                                                    <h4>Our Engagement Day</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa. Bibendum odio quis feugiat erat sit velit. Magnis mi eros ante quis morbi. Ornare urna ultricies quisque id et.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Story Area End  -->
-
-                    <!-- Gallery Area Start  -->
-                    <section class="gallery p-80" id="gallery">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xl-6 mb mb-xl-0">
-                                    <div class="row mb">
-                                        <div class="col-sm-6 mb mb-sm-0">
-                                            <img src="assets/media/gallery/Image Frame.png" alt="">
-                                        </div>
-                                        <div class="col-sm-6 mb mb-sm-0 mb-0">
-                                            <img src="assets/media/gallery/Image-2.png" alt="" class="mb">
-                                            <img src="assets/media/gallery/Image-3.png" alt="">
-                                        </div>
-                                    </div>
-                                    <img src="assets/media/gallery/Image-4.png" alt="">
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="row">
-                                        <div class="col-sm-6 mb mb-sm-0">
-                                            <img src="assets/media/gallery/Image-5.png" alt="">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <img src="assets/media/gallery/Image.png" alt="" class="mb">
-                                            <img src="assets/media/gallery/Image-1.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Gallery Area End  -->
-
-                    <!-- RSPV Area Start  -->
-                    <section id="rspv" class="reservation">
-                        <div class="content-block">
-                            <h3 class="mb-8">Will You Attend?</h3>
-                            <p class="mb-32">Please reserve before Jan 5th, 2024</p>
-                            <form id="rsvp-form">
-                                <div class="mb-24">
-                                    <input type="text" name="name" class="form-control" required placeholder="Your Name">
-                                </div>
-                                <div class="mb-24">
-                                    <input type="email" name="email" class="form-control" required placeholder="Your email">
-                                </div>
-                                <div class="select">
-                                    <select class="mb-24" name="Number_Of_Guests">
-                                        <option selected disabled>Number Of Guests</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                        <option value="4">Four</option>
-                                    </select>
-                                </div>
-                                <div class="select">
-                                    <select class="mb-24" name="Meal_Preferences">
-                                    <option selected disabled>Meal Preferences</option>
-                                    <option value="buffet">Buffet Style</option>
-                                    <option value="food">Food Stations</option>
-                                    <option value="cuisine">Themed Cuisine</option>
-                                    <option value="dessert">Dessert Only</option>
-                                    </select>
-                                </div>
-                                <div class="possibilities mb-32">
-                                    <label for="yes"><input id="yes" type="radio" name="radio" class="radio" value="1" checked="checked">Yes, I will be there</label>
-                                    <label for="no"><input id="no" type="radio" name="radio" class="radio" value="2">Sorry, I can’t come</label>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="cus-btn dark">Send An Inquiry</button>
-                                    <p id="rsvp-feedback" class="mt-3" aria-live="polite"></p>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
-                    <!-- RSPV Area End  -->
-
-                    <!-- Events Area Start  -->
-                    <section id="events">
-                        <div class="heading-block mb-64">
-                            <div class="content-block">
-                                <h4>OUR Wedding</h4>
-                                <h3>When & Where</h3>
-                            </div>
-                        </div>
-                        <div class="events-slider">
-                            <div class="item slide-1">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 offset-xxl-0 offset-md-1 offset-sm-2">
-                                            <div class="slide-content-block">
-                                                <h4 class="mb-48">The Ceremony</h4>
-                                                <h6 class="mb-16">Sunday 10 Jan, 2024</h6>
-                                                <h6 class="mb-24">2:00 PM - 4:00 PM</h6>
-                                                <h6 class="mb-24">Clark Hall Main Bolouward, <br> London</h6>
-                                                <h6 class="mb-48">+01 234 456 789</h6>
-                                                <a href="" class=" color-primary">See Location</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item slide-2">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 offset-xxl-0 offset-md-1 offset-sm-2">
-                                            <div class="slide-content-block">
-                                                <h4 class="mb-48">The Reception</h4>
-                                                <h6 class="mb-16">Monday 11 Jan, 2024</h6>
-                                                <h6 class="mb-24">2:00 PM - 4:00 PM</h6>
-                                                <h6 class="mb-24">Clark Hall Main Bolouward, <br> London</h6>
-                                                <h6 class="mb-48">+01 234 456 789</h6>
-                                                <a href="" class=" color-primary">See Location</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item slide-3">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 offset-xxl-0 offset-md-1 offset-sm-2">
-                                            <div class="slide-content-block">
-                                                <h4 class="mb-48">The Reception</h4>
-                                                <h6 class="mb-16">Tuesday 12 Jan, 2024</h6>
-                                                <h6 class="mb-24">2:00 PM - 4:00 PM</h6>
-                                                <h6 class="mb-24">Clark Hall Main Bolouward, <br> London</h6>
-                                                <h6 class="mb-48">+01 234 456 789</h6>
-                                                <a href="" class=" color-primary">See Location</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Events Area End  -->
-
-                    <!-- Story Area Start  -->
-                    <section id="blogs">
-                        <div class="container-fluid">
-                            <div class="heading-block mb-64">
-                                <div class="content-block">
-                                    <h4>OUR Blog</h4>
-                                    <h3>latest news</h3>
-                                </div>
-                            </div>
-                            <div class="blogs-slider">
-                                <div class="blog-card">
-                                    <img class="mb-16" src="assets/media/blogs/Image.png" alt="">
-                                    <h6 class="mb-16">10 JAN, 2024</h6>
-                                    <h3 class="mb-16 color-black">Two Hearts Become One: John and Sofie Celebrate Their Marriage</h3>
-                                    <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
-                                </div>
-                                <div class="blog-card">
-                                    <img class="mb-16" src="assets/media/blogs/Image-1.png" alt="">
-                                    <h6 class="mb-16">11 JAN, 2024</h6>
-                                    <h3 class="mb-16 color-black">Love in Bloom: John and Sofie Embark on Their New Chapter</h3>
-                                    <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
-                                </div>
-                                <div class="blog-card">
-                                    <img class="mb-16" src="assets/media/blogs/Image-2.png" alt="">
-                                    <h6 class="mb-16">12 JAN, 2024</h6>
-                                    <h3 class="mb-16 color-black">Celebrating Love's Journey: John and Sofie Say 'Forever'</h3>
-                                    <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
-                                </div>
-                                <div class="blog-card">
-                                    <img class="mb-16" src="assets/media/blogs/Image.png" alt="">
-                                    <h6 class="mb-16">10 JAN, 2024</h6>
-                                    <h3 class="mb-16 color-black">Two Hearts Become One: John and Sofie Celebrate Their Marriage</h3>
-                                    <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
-                                </div>
-                                <div class="blog-card">
-                                    <img class="mb-16" src="assets/media/blogs/Image-1.png" alt="">
-                                    <h6 class="mb-16">11 JAN, 2024</h6>
-                                    <h3 class="mb-16 color-black">Love in Bloom: John and Sofie Embark on Their New Chapter</h3>
-                                    <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
-                                </div>
-                                <div class="blog-card">
-                                    <img class="mb-16" src="assets/media/blogs/Image-2.png" alt="">
-                                    <h6 class="mb-16">12 JAN, 2024</h6>
-                                    <h3 class="mb-16 color-black">Celebrating Love's Journey: John and Sofie Say 'Forever'</h3>
-                                    <p class="mb-16">Lorem ipsum dolor sit amet consectetur. Pretium morbi id volutpat ut viverra vel. Non sit massa vitae penatibus sit velit quis massa.</p>
-                                    <a href="blog-detail.php" class="cus-btn dark">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Story Area End  -->
-
-                </div>
-                <!-- Main Content End -->
-
-                <!-- footer Area start -->
-                <section class="footer">
-                    <div class="container-fluid">
-                        <a href="index.php"><img src="assets/media/logo.png" alt="" class="logo"></a>
-                        <h2>Thank You</h2>
-                    </div>
-                </section>
-                <!-- footer Area end -->
-            </div>
-            
-        </div>
-            <!-- Jquery Js -->
-            <script src="assets/js/vendor/jquery-3.6.3.min.js"></script>
-            <script src="assets/js/vendor/bootstrap.min.js"></script>
-            <script src="assets/js/vendor/jquery.countdown.min.js"></script>
-            <script src="assets/js/vendor/slick.min.js"></script>
-            <script src="assets/js/vendor/smoothscroll.js"></script>
-            <script src="assets/js/vendor/jquery-appear.js"></script>
-            <script src="assets/js/vendor/smooth-scrollbar.js"></script>
-
-            <!-- Site Scripts -->
-            <script src="assets/js/app.js"></script>
-            
-    </body>
-
-</html>
+echo strtr($template, $replaceMap);
