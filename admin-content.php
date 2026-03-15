@@ -203,7 +203,7 @@ try {
                         ?>
                         <input type="file" name="image_upload[<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>]" accept=".jpg,.jpeg,.png,.gif,.webp,.svg" style="margin-top:8px; width:100%;">
                         <div class="image-meta">
-                            Resolución base: <?= htmlspecialchars($resolutionLabel ?? 'No disponible', ENT_QUOTES, 'UTF-8') ?>
+                            Resolución recomendada: <?= htmlspecialchars($resolutionLabel ?? 'No disponible', ENT_QUOTES, 'UTF-8') ?>
                         </div>
                     <?php endif; ?>
                 </div>
