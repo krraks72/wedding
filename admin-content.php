@@ -13,6 +13,90 @@ $message = null;
 $error = null;
 $loginError = null;
 
+$sectionMeta = [
+    'home' => [
+        'title' => 'Plantilla Home (index.php)',
+        'desc' => 'Contenido principal de la página de inicio.',
+    ],
+    'invitation' => [
+        'title' => 'Plantilla Invitación (invitation.php)',
+        'desc' => 'Contenido mostrado en la página de invitación.',
+    ],
+    'blog_detail' => [
+        'title' => 'Plantilla Detalle de Blog (blog-detail.php)',
+        'desc' => 'Contenido del detalle de blog y formulario de comentarios.',
+    ],
+    'images_home' => [
+        'title' => 'Imágenes Home',
+        'desc' => 'Imágenes usadas en la página principal.',
+    ],
+];
+
+$guideByKey = [
+    'meta_description' => 'SEO: meta description del Home.',
+    'page_title' => 'Etiqueta <title> del Home.',
+    'hero_paragraph' => 'Párrafo principal del hero. Puedes usar <br> para saltos.',
+    'event_1_location_url' => 'URL del mapa o ubicación del evento 1.',
+    'event_2_location_url' => 'URL del mapa o ubicación del evento 2.',
+    'invitation_meta_description' => 'SEO: meta description de la invitación.',
+    'invitation_page_title' => 'Etiqueta <title> de la invitación.',
+    'blog_detail_meta_description' => 'SEO: meta description del detalle de blog.',
+    'blog_detail_page_title' => 'Etiqueta <title> del detalle de blog.',
+];
+
+$guideByPrefix = [
+    'blog_detail_comment_' => 'Comentario precargado en el detalle del blog.',
+    'blog_detail_form_' => 'Formulario "Leave a comment" en el detalle del blog.',
+    'blog_detail_reply_' => 'Bloque de respuesta en el detalle del blog.',
+    'blog_detail_image_' => 'Imagen del detalle del blog.',
+    'blog_detail_' => 'Contenido general del detalle del blog.',
+    'invitation_' => 'Contenido de la invitación.',
+    'event_1_' => 'Evento 1 en Home.',
+    'event_2_' => 'Evento 2 en Home.',
+    'events_' => 'Encabezado de sección de eventos en Home.',
+    'blog_1_' => 'Tarjeta de blog 1 en Home.',
+    'blog_2_' => 'Tarjeta de blog 2 en Home.',
+    'blog_3_' => 'Tarjeta de blog 3 en Home.',
+    'blogs_' => 'Encabezado de sección blog en Home.',
+    'rsvp_' => 'Sección RSVP en Home.',
+    'story_' => 'Sección historia en Home.',
+    'countdown_' => 'Sección contador en Home.',
+    'about_' => 'Sección About Us en Home.',
+    'hero_' => 'Sección hero en Home.',
+    'nav_' => 'Texto del menú principal en Home.',
+    'footer_' => 'Pie de página del Home.',
+    'image_' => 'Imagen usada en el Home.',
+];
+
+function guideForKey(string $key, array $guideByKey, array $guideByPrefix): string
+{
+    if (isset($guideByKey[$key])) {
+        return $guideByKey[$key];
+    }
+
+    foreach ($guideByPrefix as $prefix => $guide) {
+        if (str_starts_with($key, $prefix)) {
+            return $guide;
+        }
+    }
+
+    return sprintf('Campo de contenido para %s.', $key);
+}
+
+function sectionForKey(string $key): string
+{
+    if (str_starts_with($key, 'invitation_')) {
+        return 'invitation';
+    }
+    if (str_starts_with($key, 'blog_detail_')) {
+        return 'blog_detail';
+    }
+    if (str_starts_with($key, 'image_')) {
+        return 'images_home';
+    }
+    return 'home';
+}
+
 if (isset($_GET['logout'])) {
     $_SESSION = [];
     session_destroy();
@@ -162,9 +246,14 @@ try {
         .ok { background: #ecfdf3; color:#166534; }
         .err { background: #fef2f2; color:#991b1b; }
         .grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+        .section { grid-column: 1 / -1; background: #f7f5ff; border:1px dashed #c9c3e6; border-radius:10px; padding:12px 14px; }
+        .section h2 { margin:0 0 4px; font-size:18px; }
+        .section p { margin:0; font-size:13px; color:#4b4b62; }
         .field { background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px; }
         label { font-weight:700; display:block; margin-bottom:8px; }
         textarea { width:100%; min-height:90px; border:1px solid #ccc; border-radius:6px; padding:8px; font-size:14px; }
+        .guide { margin-top:8px; font-size:12px; color:#5a5a6a; background:#f3f4f6; border-radius:6px; padding:6px 8px; }
+        .guide code { background:#e7e7f4; padding:1px 4px; border-radius:4px; }
         .actions { margin-top: 20px; }
         button { background:#4b3d8f; color:#fff; border:0; border-radius:8px; padding:12px 18px; cursor:pointer; }
         .hint { font-size: 13px; color:#555; margin-top: 8px; }
@@ -192,10 +281,28 @@ try {
 
     <form method="post" enctype="multipart/form-data">
         <div class="grid">
+            <?php $currentSection = null; ?>
             <?php foreach ($defaults as $key => $defaultValue): ?>
+                <?php
+                $sectionKey = sectionForKey($key);
+                if ($sectionKey !== $currentSection):
+                    $currentSection = $sectionKey;
+                    $sectionInfo = $sectionMeta[$sectionKey] ?? ['title' => 'Contenido', 'desc' => ''];
+                    ?>
+                    <div class="section">
+                        <h2><?= htmlspecialchars($sectionInfo['title'], ENT_QUOTES, 'UTF-8') ?></h2>
+                        <?php if ($sectionInfo['desc'] !== ''): ?>
+                            <p><?= htmlspecialchars($sectionInfo['desc'], ENT_QUOTES, 'UTF-8') ?></p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
                 <div class="field">
                     <label for="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?></label>
                     <textarea id="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>" name="content[<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>]"><?= htmlspecialchars((string)($content[$key] ?? $defaultValue), ENT_QUOTES, 'UTF-8') ?></textarea>
+                    <div class="guide">
+                        Gu&iacute;a: <?= htmlspecialchars(guideForKey($key, $guideByKey, $guideByPrefix), ENT_QUOTES, 'UTF-8') ?>
+                        &nbsp;Etiqueta: <code><?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?></code>
+                    </div>
                     <?php if (isset($imageKeys[$key])): ?>
                         <?php
                         $currentImagePath = (string)($content[$key] ?? $defaultValue);
