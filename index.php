@@ -14,6 +14,25 @@ try {
     $content = $defaults;
 }
 
+function buildCountdownDate(string $date, string $timeRange): string
+{
+    $timeRange = trim($timeRange);
+    if ($timeRange === '') {
+        return $date;
+    }
+    $parts = explode('-', $timeRange, 2);
+    $startTime = trim($parts[0] ?? '');
+    if ($startTime === '') {
+        return $date;
+    }
+    return trim($date . ' ' . $startTime);
+}
+
+$countdownDate = buildCountdownDate(
+    (string)($content['event_1_date'] ?? ''),
+    (string)($content['event_1_time'] ?? '')
+);
+
 $templatePath = __DIR__ . '/index-content-template.html';
 $template = file_get_contents($templatePath);
 if ($template === false) {
@@ -56,7 +75,7 @@ $replaceMap = [
     'John and Sofie' => $content['hero_couple'],
     'Lorem ipsum dolor sit amet consectetur. Velit vulputate lacus risus scelerisque faucibus eu. Sollicitudin justo imperdiet vitae mattis ipsum arcu nullam odio. Leo sed quis.' => $content['hero_paragraph'],
     'Save The Date' => $content['hero_date_label'],
-    'Nov 6, 2023' => $content['hero_date'],
+    'JUN 10, 2026' => $content['hero_date'],
     'About Us' => $content['about_label'],
     'Let’s know' => $content['about_title'],
     'John William' => $content['about_person_1'],
@@ -65,7 +84,7 @@ $replaceMap = [
     'Ella, una dama de hermosa cabellera y vestido blanco' => $content['about_paragraph_2'],
     'save the date' => $content['countdown_label'],
     'We are getting married' => $content['countdown_title'],
-    '__COUNTDOWN_DATE__' => htmlspecialchars($content['countdown_date'], ENT_QUOTES, 'UTF-8'),
+    '__COUNTDOWN_DATE__' => htmlspecialchars($countdownDate, ENT_QUOTES, 'UTF-8'),
     '__COUNT_DAYS_LABEL__' => htmlspecialchars($content['count_days'], ENT_QUOTES, 'UTF-8'),
     '__COUNT_HOURS_LABEL__' => htmlspecialchars($content['count_hours'], ENT_QUOTES, 'UTF-8'),
     '__COUNT_MINUTES_LABEL__' => htmlspecialchars($content['count_minutes'], ENT_QUOTES, 'UTF-8'),
@@ -105,13 +124,13 @@ $replaceMap = [
     '__EVENT_2_LOCATION_URL__' => htmlspecialchars($content['event_2_location_url'], ENT_QUOTES, 'UTF-8'),
     'When & Where' => $content['events_title'],
     'The Ceremony' => $content['event_1_title'],
-    'Sunday 10 Jan, 2024' => $content['event_1_date'],
-    '2:00 PM - 4:00 PM' => $content['event_1_time'],
+    'Sunday 10 Jan, 2026' => $content['event_1_date'],
+    '2:00 PM' => $content['event_1_time'],
     'Clark Hall Main Bolouward,<br>London' => $content['event_1_address'],
     'See Location 1' => $content['event_1_location_button'],
     'The Reception' => $content['event_2_title'],
-    'Monday 11 Jan, 2024' => $content['event_2_date'],
-    '4:00 PM - 10:00 PM' => $content['event_2_time'],
+    'Monday 11 Jan, 2026' => $content['event_2_date'],
+    '4:00 PM' => $content['event_2_time'],
     'Clark Hall Main Bolouward, 2<br>London 2' => $content['event_2_address'],
     'See Location 2' => $content['event_2_location_button'],
     'OUR Blog' => $content['blogs_label'],

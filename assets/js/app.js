@@ -304,6 +304,35 @@
         var $counter = $(this);
         var countdownTime = $counter.data("countdown");
         if (!countdownTime) {
+          var $comingSoon = $counter.closest(".coming-soon");
+          if ($comingSoon.length) {
+            var fallbackText = $comingSoon.find(".text h3").first().text().trim();
+            if (fallbackText) {
+              countdownTime = fallbackText;
+            }
+          }
+        }
+        if (!countdownTime) {
+          var $invitation = $counter.closest(".invitation");
+          if ($invitation.length) {
+            var inviteText = $invitation.find(".content-block h3").first().text().trim();
+            if (inviteText) {
+              countdownTime = inviteText;
+            }
+          }
+        }
+        if (!countdownTime) {
+          var $eventBlock = $(".events-slider .slide-1 .slide-content-block").first();
+          if ($eventBlock.length) {
+            var eventDate = $eventBlock.find("h6").eq(0).text().trim();
+            var eventTimeRange = $eventBlock.find("h6").eq(1).text().trim();
+            if (eventDate) {
+              var startTime = eventTimeRange.split("-")[0].trim();
+              countdownTime = startTime ? (eventDate + " " + startTime) : eventDate;
+            }
+          }
+        }
+        if (!countdownTime) {
           return;
         }
 
@@ -329,7 +358,4 @@
   }
   Init.i();
 })(window, document, jQuery);
-
-
-
 

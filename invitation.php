@@ -14,6 +14,25 @@ try {
     $content = $defaults;
 }
 
+function buildCountdownDate(string $date, string $timeRange): string
+{
+    $timeRange = trim($timeRange);
+    if ($timeRange === '') {
+        return $date;
+    }
+    $parts = explode('-', $timeRange, 2);
+    $startTime = trim($parts[0] ?? '');
+    if ($startTime === '') {
+        return $date;
+    }
+    return trim($date . ' ' . $startTime);
+}
+
+$countdownDate = buildCountdownDate(
+    (string)($content['event_1_date'] ?? ''),
+    (string)($content['event_1_time'] ?? '')
+);
+
 $templatePath = __DIR__ . '/invitation-template.html';
 $template = file_get_contents($templatePath);
 if ($template === false) {
@@ -37,11 +56,7 @@ $replaceMap = [
     '__INVITATION_LABEL__' => $content['invitation_label'],
     '__INVITATION_TEXT__' => $content['invitation_text'],
     '__INVITATION_DATE__' => $content['invitation_date'],
-    '__INVITATION_COUNTDOWN_DATE__' => htmlspecialchars($content['invitation_countdown_date'], ENT_QUOTES, 'UTF-8'),
-    '__INVITATION_COUNT_DAYS__' => $content['invitation_count_days'],
-    '__INVITATION_COUNT_HOURS__' => $content['invitation_count_hours'],
-    '__INVITATION_COUNT_MINUTES__' => $content['invitation_count_minutes'],
-    '__INVITATION_COUNT_SECONDS__' => $content['invitation_count_seconds'],
+    '__INVITATION_COUNTDOWN_DATE__' => htmlspecialchars($countdownDate, ENT_QUOTES, 'UTF-8'),
     '__COUNT_DAYS_LABEL__' => htmlspecialchars($content['count_days'], ENT_QUOTES, 'UTF-8'),
     '__COUNT_HOURS_LABEL__' => htmlspecialchars($content['count_hours'], ENT_QUOTES, 'UTF-8'),
     '__COUNT_MINUTES_LABEL__' => htmlspecialchars($content['count_minutes'], ENT_QUOTES, 'UTF-8'),
