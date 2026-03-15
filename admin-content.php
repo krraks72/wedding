@@ -250,6 +250,9 @@ try {
         .section { background: #f7f5ff; border:1px dashed #c9c3e6; border-radius:10px; padding:12px 14px; }
         .section h2 { margin:0 0 4px; font-size:18px; }
         .section p { margin:0; font-size:13px; color:#4b4b62; }
+        .section-nav { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px; }
+        .section-nav a { background:#fff; border:1px solid #ddd; padding:6px 10px; border-radius:999px; text-decoration:none; font-size:13px; color:#3d3d4f; }
+        .section-nav a:hover { border-color:#4b3d8f; color:#4b3d8f; }
         .field { background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px; }
         label { font-weight:700; display:block; margin-bottom:8px; }
         textarea { width:100%; min-height:90px; border:1px solid #ccc; border-radius:6px; padding:8px; font-size:14px; }
@@ -283,6 +286,12 @@ try {
     <?php
     $sectionBuckets = [];
     $sectionOrder = [];
+    $sectionIds = [
+        'home' => 'section-home',
+        'invitation' => 'section-invitation',
+        'blog_detail' => 'section-blog-detail',
+        'images_home' => 'section-images-home',
+    ];
     foreach ($defaults as $key => $defaultValue) {
         $sectionKey = sectionForKey($key);
         if (!isset($sectionBuckets[$sectionKey])) {
@@ -292,10 +301,22 @@ try {
         $sectionBuckets[$sectionKey][] = [$key, $defaultValue];
     }
     ?>
+    <div class="section-nav">
+        <?php foreach ($sectionOrder as $sectionKey): ?>
+            <?php
+            $sectionInfo = $sectionMeta[$sectionKey] ?? ['title' => 'Contenido'];
+            $sectionId = $sectionIds[$sectionKey] ?? ('section-' . $sectionKey);
+            ?>
+            <a href="#<?= htmlspecialchars($sectionId, ENT_QUOTES, 'UTF-8') ?>">
+                <?= htmlspecialchars($sectionInfo['title'], ENT_QUOTES, 'UTF-8') ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
     <form method="post" enctype="multipart/form-data">
         <?php foreach ($sectionOrder as $sectionKey): ?>
             <?php $sectionInfo = $sectionMeta[$sectionKey] ?? ['title' => 'Contenido', 'desc' => '']; ?>
-            <div class="section-block">
+            <?php $sectionId = $sectionIds[$sectionKey] ?? ('section-' . $sectionKey); ?>
+            <div class="section-block" id="<?= htmlspecialchars($sectionId, ENT_QUOTES, 'UTF-8') ?>">
                 <div class="section">
                     <h2><?= htmlspecialchars($sectionInfo['title'], ENT_QUOTES, 'UTF-8') ?></h2>
                     <?php if ($sectionInfo['desc'] !== ''): ?>
