@@ -1,259 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Audiobeats HTML5 Template">
+declare(strict_types=1);
 
-        <title>Blessed wedding template</title>
+require_once __DIR__ . '/includes_content_store.php';
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="assets/media/favicon-light.png">
+$defaults = defaultContentBlocks();
 
-        <!-- All CSS files -->
-        <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/vendor/slick.css">
-        <link rel="stylesheet" href="assets/css/vendor/font-awesome.css">
-        <link rel="stylesheet" href="assets/css/vendor/slick-theme.css">
-        <link rel="stylesheet" href="assets/css/app.css">
-    </head>
+try {
+    $pdo = getContentPdo();
+    seedContentBlocks($pdo, $defaults);
+    $content = array_merge($defaults, fetchContentBlocks($pdo));
+} catch (Throwable $exception) {
+    $content = $defaults;
+}
 
-    <body class="ui-smooth-scroll">
-        <!-- Preloader -->
-        <div id="preloader">
-            <div class="contain">
-                <div class="loader">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="shadow"></div>
-            </div>
-        </div>
-        
-        <!-- Back To Top Start -->
-        <a href="#main-wrapper" id="backto-top" class="back-to-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-        <!-- Main Wrapper Start -->
-        <div id="main-wrapper" class="main-wrapper overflow-hidden">
-            <div id="scroll-container">
-                <!-- Header Area Start -->
-                <header class="large-screens">
-                    <div class="container-fluid">
-                        <nav class="navbar navbar-expand-lg">
-                            <div class="collapse navbar-collapse justify-content-between" id="mynavbar-3">
-                                <div class="col-lg-5">
-                                    <ul class="navbar-nav mainmenu">
-                                        <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
-                                        <li class="menu-item"><a href="index.php#story">STORY</a></li>
-                                        <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="text-center">
-                                        <a class="navbar-brand" href="index.php"><img alt="logo" src="assets/media/logo.png"></a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 ">
-                                    <ul class="navbar-nav mainmenu justify-content-end">
-                                        <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
-                                        <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
-                                        <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </header>
-                <header class="small-screen">
-                    <div class="container-fluid">
-                        <div class="mobile-menu">
-                            <div>
-                                <a class="navbar-brand" href="index.php"><img alt=""  src="./assets/media/logo.png"></a>
-                            </div>
-                            <div class="hamburger-menu">
-                                <div class="bar"></div>	
-                            </div>
-                        </div>
-                        <nav class="mobile-navar d-xl-none">
-                            <ul>
-                                <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
-                                <li class="menu-item"><a href="index.php#story">STORY</a></li>
-                                <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
-                                <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
-                                <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
-                                <li class="menu-item"><a href="index.php#blogs">Blogs</a></li>
-                                <li class="menu-item"><a href="invitation.php">INVITATION</a></li>
-                            </ul>    
-                        </nav>
-                    </div>
-                </header>
-                <!-- Header Area end -->
-    
-                <!-- Page Title Area start -->
-                <section class="page-title">   
-                    <h2>Blog Detail</h2>
-                </section>
-                <!-- Page Title Area end -->
-    
-                <!-- Blog Detail Area start -->
-                <section class="blog-detail">   
-                    <div class="contianer-fluid">
-                        <div class="row">
-                            <div class="col-xxl-8 col-lg-10 offset-xxl-2 offset-lg-1 col-12">
-                                <h2 class="title mb-32">John and Sofie Embark on Their New Chapter</h2>
-                                <ul class="unstyled mb-32">
-                                    <li><i class="fal fa-user"></i><p>EMILLIA WILLIAMS</p></li>
-                                    <li><i class="far fa-comment-alt"></i> <p>COMMENTS 30</p></li>
-                                    <li><i class="fal fa-calendar-alt"></i><p>10 JAN, 2024</p></li>
-                                </ul>
-                                <img class="mb-32" src="assets/media/blogs/bd-1.png" alt="">
-                                <p class="mb-32">Lorem ipsum dolor sit amet consectetur. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu. Senectus nibh a maecenas sem ipsum id lacus. Pharetra commodo et vitae bibendum aliquet in amet. Sagittis ullamcorper diam varius non sed euismod vel. Ante luctus non eget mauris proin. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu. Senectus nibh.</p>
-                                <h6 class="quote mb-32">
-                                    “Lorem ipsum dolor sit amet consectetur. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu.”
-                                </h6>
-                                <p class="mb-32">Lorem ipsum dolor sit amet consectetur. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu. Senectus nibh a maecenas sem ipsum id lacus. Pharetra commodo et vitae bibendum aliquet in amet. Sagittis ullamcorper diam varius non sed euismod vel. Ante luctus non eget mauris proin. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu. Senectus nibh.</p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <img class="mb-32 mb-sm-0" src="assets/media/blogs/bd-2.png" alt="">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <img src="assets/media/blogs/bd-3.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Blog Detail Area end -->
-    
-                <!-- Comments Area start -->
-                <section class="comments">   
-                    <div class="contianer-fluid">
-                        <div class="row">
-                            <div class="col-xxl-8 col-lg-10 offset-xxl-2 offset-lg-1 col-12">
-                                <h3 class="heading-title mb-32">Comments</h3>
-                                <div class="comment-box mb-24">
-                                    <img src="assets/media/users/image.png" alt="">
-                                    <div class="text-block">
-                                        <div class="top-line mb-16">
-                                            <h6 class="color-black">Isabella Garcia</h6>
-                                            <p>10 JAN, 2024</p>
-                                        </div>
-                                        <p class=" mb-16">Lorem ipsum dolor sit amet consectetur. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu. Senectus nibh a maecenas sem ipsum id lacus.</p>
-                                        <button class=" accordion-button comment-btn reply-btn" data-bs-toggle="collapse" data-bs-target="#reply1" aria-expanded="true"><span class="color-black">Reply</span></button>
-                                        <div id="reply1" class="accordion-collapse collapse write-reply" data-bs-parent="#accordionExample">
-                                            <div class="write-comment-box">
-                                                <img src="assets/media/users/image-2.png" alt="">
-                                                <form action="blog-detail.php">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control p-0 border-0" name="search" required placeholder="Write your comment">
-                                                        <button type="submit">Post</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-box mb-24 comment-reply">
-                                    <img src="assets/media/users/image-1.png" alt="">
-                                    <div class="text-block">
-                                        <div class="top-line mb-16">
-                                            <h6 class="color-black">Isabella Garcia</h6>
-                                            <p>10 JAN, 2024</p>
-                                        </div>
-                                        <p class=" mb-16">Lorem ipsum dolor sit amet consectetur. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu. Senectus nibh a maecenas sem ipsum id lacus.</p>
-                                        <button class=" accordion-button comment-btn reply-btn" data-bs-toggle="collapse" data-bs-target="#reply2" aria-expanded="true"><span class="color-black">Reply</span></button>
-                                        <div id="reply2" class="accordion-collapse collapse write-reply" data-bs-parent="#accordionExample">
-                                            <div class="write-comment-box">
-                                                <img src="assets/media/users/image-2.png" alt="">
-                                                <form action="blog-detail.php">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control p-0 border-0" name="search" required placeholder="Write your comment">
-                                                        <button type="submit">Post</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-box">
-                                    <img src="assets/media/users/image-2.png" alt="">
-                                    <div class="text-block">
-                                        <div class="top-line mb-16">
-                                            <h6 class="color-black">Isabella Garcia</h6>
-                                            <p>10 JAN, 2024</p>
-                                        </div>
-                                        <p class=" mb-16">Lorem ipsum dolor sit amet consectetur. Ut ipsum vitae elementum dolor maecenas at convallis. Nulla eu vehicula commodo nunc pellentesque urna molestie amet arcu. Senectus nibh a maecenas sem ipsum id lacus.</p>
-                                        <button class=" accordion-button comment-btn reply-btn" data-bs-toggle="collapse" data-bs-target="#reply3" aria-expanded="true"><span class="color-black">Reply</span></button>
-                                        <div id="reply3" class="accordion-collapse collapse write-reply" data-bs-parent="#accordionExample">
-                                            <div class="write-comment-box">
-                                                <img src="assets/media/users/image-2.png" alt="">
-                                                <form action="blog-detail.php">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control p-0 border-0" name="search" required placeholder="Write your comment">
-                                                        <button type="submit">Post</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-form">
-                                    <h3 class="heading-title mb-32">LEAVE A COMMENT</h3>
-                                    <form action="blog-detail.php">
-                                        <div class="mb-24">
-                                            <textarea  name="comment" class="form-control" rows="3" required placeholder="Write Your Comments..."></textarea>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="mb-24">
-                                                    <input type="text" name="name" class="form-control" required placeholder="Your Name">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="mb-24">
-                                                    <input type="email" name="email" class="form-control" required placeholder="Your email">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-24">
-                                            <input type="text" name="subject" class="form-control" required placeholder="Subject">
-                                        </div>
-                                        <button class="cus-btn dark">Send Message</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Comments Area end -->
-    
-                <!-- footer Area start -->
-                <section class="footer">
-                    <div class="container-fluid">
-                        <a href="index.php"><img src="assets/media/logo.png" alt="" class="logo"></a>
-                        <h2>Thank You</h2>
-                    </div>
-                </section>
-                <!-- footer Area end -->
-            </div>
-        </div>
-            <!-- Jquery Js -->
-            <script src="assets/js/vendor/jquery-3.6.3.min.js"></script>
-            <script src="assets/js/vendor/bootstrap.min.js"></script>
-            <script src="assets/js/vendor/jquery.countdown.min.js"></script>
-            <script src="assets/js/vendor/slick.min.js"></script>
-            <script src="assets/js/vendor/smoothscroll.js"></script>
-            <script src="assets/js/vendor/jquery-appear.js"></script>
-            <script src="assets/js/vendor/smooth-scrollbar.js"></script>
+$templatePath = __DIR__ . '/blog-detail-template.html';
+$template = file_get_contents($templatePath);
+if ($template === false) {
+    http_response_code(500);
+    echo 'No se pudo cargar la plantilla del blog.';
+    exit;
+}
 
-            <!-- Site Scripts -->
-            <script src="assets/js/app.js"></script>
-            
-    </body>
+$replaceMap = [
+    '__BLOG_DETAIL_META_DESCRIPTION__' => htmlspecialchars($content['blog_detail_meta_description'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_PAGE_TITLE__' => htmlspecialchars($content['blog_detail_page_title'], ENT_QUOTES, 'UTF-8'),
+    '__IMAGE_LOGO__' => htmlspecialchars($content['image_logo'], ENT_QUOTES, 'UTF-8'),
+    '__NAV_ABOUT__' => $content['nav_about'],
+    '__NAV_STORY__' => $content['nav_story'],
+    '__NAV_GALLERY__' => $content['nav_gallery'],
+    '__NAV_RSVP__' => $content['nav_rsvp'],
+    '__NAV_EVENTS__' => $content['nav_events'],
+    '__NAV_INVITATION__' => $content['nav_invitation'],
+    '__NAV_BLOGS__' => $content['nav_blogs'],
+    '__BLOG_DETAIL_HEADING__' => $content['blog_detail_heading'],
+    '__BLOG_DETAIL_TITLE__' => $content['blog_detail_title'],
+    '__BLOG_DETAIL_AUTHOR__' => $content['blog_detail_author'],
+    '__BLOG_DETAIL_COMMENTS__' => $content['blog_detail_comments'],
+    '__BLOG_DETAIL_DATE__' => $content['blog_detail_date'],
+    '__BLOG_DETAIL_IMAGE_MAIN__' => htmlspecialchars($content['blog_detail_image_main'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_PARAGRAPH_1__' => $content['blog_detail_paragraph_1'],
+    '__BLOG_DETAIL_QUOTE__' => $content['blog_detail_quote'],
+    '__BLOG_DETAIL_PARAGRAPH_2__' => $content['blog_detail_paragraph_2'],
+    '__BLOG_DETAIL_IMAGE_1__' => htmlspecialchars($content['blog_detail_image_1'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_IMAGE_2__' => htmlspecialchars($content['blog_detail_image_2'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_COMMENTS_HEADING__' => $content['blog_detail_comments_heading'],
+    '__BLOG_DETAIL_COMMENT_1_IMAGE__' => htmlspecialchars($content['blog_detail_comment_1_image'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_COMMENT_1_NAME__' => $content['blog_detail_comment_1_name'],
+    '__BLOG_DETAIL_COMMENT_1_DATE__' => $content['blog_detail_comment_1_date'],
+    '__BLOG_DETAIL_COMMENT_1_TEXT__' => $content['blog_detail_comment_1_text'],
+    '__BLOG_DETAIL_COMMENT_2_IMAGE__' => htmlspecialchars($content['blog_detail_comment_2_image'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_COMMENT_2_NAME__' => $content['blog_detail_comment_2_name'],
+    '__BLOG_DETAIL_COMMENT_2_DATE__' => $content['blog_detail_comment_2_date'],
+    '__BLOG_DETAIL_COMMENT_2_TEXT__' => $content['blog_detail_comment_2_text'],
+    '__BLOG_DETAIL_COMMENT_3_IMAGE__' => htmlspecialchars($content['blog_detail_comment_3_image'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_COMMENT_3_NAME__' => $content['blog_detail_comment_3_name'],
+    '__BLOG_DETAIL_COMMENT_3_DATE__' => $content['blog_detail_comment_3_date'],
+    '__BLOG_DETAIL_COMMENT_3_TEXT__' => $content['blog_detail_comment_3_text'],
+    '__BLOG_DETAIL_REPLY_AVATAR__' => htmlspecialchars($content['blog_detail_reply_avatar'], ENT_QUOTES, 'UTF-8'),
+    '__BLOG_DETAIL_REPLY_LABEL__' => $content['blog_detail_reply_label'],
+    '__BLOG_DETAIL_REPLY_PLACEHOLDER__' => $content['blog_detail_reply_placeholder'],
+    '__BLOG_DETAIL_REPLY_POST__' => $content['blog_detail_reply_post'],
+    '__BLOG_DETAIL_FORM_HEADING__' => $content['blog_detail_form_heading'],
+    '__BLOG_DETAIL_FORM_COMMENT_PLACEHOLDER__' => $content['blog_detail_form_comment_placeholder'],
+    '__BLOG_DETAIL_FORM_NAME_PLACEHOLDER__' => $content['blog_detail_form_name_placeholder'],
+    '__BLOG_DETAIL_FORM_EMAIL_PLACEHOLDER__' => $content['blog_detail_form_email_placeholder'],
+    '__BLOG_DETAIL_FORM_SUBJECT_PLACEHOLDER__' => $content['blog_detail_form_subject_placeholder'],
+    '__BLOG_DETAIL_FORM_BUTTON__' => $content['blog_detail_form_button'],
+    '__FOOTER_THANKS__' => $content['footer_thanks'],
+];
 
-</html>
+echo strtr($template, $replaceMap);

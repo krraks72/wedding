@@ -1,143 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Audiobeats HTML5 Template">
+declare(strict_types=1);
 
-        <title>Blessed wedding template</title>
+require_once __DIR__ . '/includes_content_store.php';
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="assets/media/favicon-light.png">
+$defaults = defaultContentBlocks();
 
-        <!-- All CSS files -->
-        <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/vendor/slick.css">
-        <link rel="stylesheet" href="assets/css/vendor/font-awesome.css">
-        <link rel="stylesheet" href="assets/css/vendor/slick-theme.css">
-        <link rel="stylesheet" href="assets/css/app.css">
-    </head>
+try {
+    $pdo = getContentPdo();
+    seedContentBlocks($pdo, $defaults);
+    $content = array_merge($defaults, fetchContentBlocks($pdo));
+} catch (Throwable $exception) {
+    $content = $defaults;
+}
 
-    <body class="ui-smooth-scroll">
-        <!-- Preloader -->
-        <div id="preloader">
-            <div class="contain">
-                <div class="loader">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="shadow"></div>
-            </div>
-        </div>
-        
-        <!-- Back To Top Start -->
-        <a href="#main-wrapper" id="backto-top" class="back-to-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-        <!-- Main Wrapper Start -->
-        <div id="main-wrapper" class="main-wrapper overflow-hidden">
-            <div id="scroll-container">
-                <!-- Header Area Start -->
-                <header class="large-screens">
-                    <div class="container-fluid">
-                        <nav class="navbar navbar-expand-lg">
-                            <div class="collapse navbar-collapse justify-content-between" id="mynavbar-3">
-                                <div class="col-lg-5">
-                                    <ul class="navbar-nav mainmenu">
-                                        <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
-                                        <li class="menu-item"><a href="index.php#story">STORY</a></li>
-                                        <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="text-center">
-                                        <a class="navbar-brand" href="index.php"><img alt="logo" src="assets/media/logo.png"></a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 ">
-                                    <ul class="navbar-nav mainmenu justify-content-end">
-                                        <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
-                                        <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
-                                        <li class="menu-item"><a href="invitation.php" class="active">INVITATION</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </header>
-                <header class="small-screen">
-                    <div class="container-fluid">
-                        <div class="mobile-menu">
-                            <div>
-                                <a class="navbar-brand" href="index.php"><img alt=""  src="./assets/media/logo.png"></a>
-                            </div>
-                            <div class="hamburger-menu">
-                                <div class="bar"></div>	
-                            </div>
-                        </div>
-                        <nav class="mobile-navar d-xl-none">
-                            <ul>
-                                <li class="menu-item"><a href="index.php#about">ABOUT US</a></li>
-                                <li class="menu-item"><a href="index.php#story">STORY</a></li>
-                                <li class="menu-item"><a href="index.php#gallery">GALLERY</a></li>
-                                <li class="menu-item"><a href="index.php#rspv">RSVP</a></li>
-                                <li class="menu-item"><a href="index.php#events">EVENTS</a></li>
-                                <li class="menu-item"><a href="index.php#blogs">Blogs</a></li>
-                                <li class="menu-item"><a href="invitation.php" class="active">INVITATION</a></li>
-                            </ul>    
-                        </nav>
-                    </div>
-                </header>
-                <!-- Header Area end -->
-    
-                <!-- Invitation Area start -->
-                <section class="invitation">   
-                    <div class="content-block">
-                        <h1 class="mb-32">John and Sofie</h1>
-                        <h6 class="mb-24">save the date</h6>
-                        <h5 class="mb-24 text">We are getting married</h5>
-                        <h3 class="mb-24">Nov 6, 2023</h3>
-                        <ul class="countdown unstyled">
-                            <li> 
-                                <h4 class="number">365</h4>
-                                <h5 class="number-text">Days</h5> 
-                            </li>
-                            <li> 
-                                <h4 class="number">11</h4>
-                                <h5 class="number-text">Hrs</h5> 
-                            </li>
-                            <li> 
-                                <h4 class="number">29</h4>
-                                <h5 class="number-text">Min</h5> 
-                            </li>
-                            <li> 
-                                <h4 class="number">33</h4>
-                                <h5 class="number-text">Sec</h5> 
-                            </li>
-                        </ul>
-                        <h6 class="mb-32 address">Clark Hall Main Bolouward, London</h6>
-                        <a href="index.php#rspv" class="cus-btn light">Reservation</a>
-                    </div>
-                </section>
-                <!-- Invitation Area end -->
-            </div>
-             
-        </div>
-            <!-- Jquery Js -->
-            <script src="assets/js/vendor/jquery-3.6.3.min.js"></script>
-            <script src="assets/js/vendor/bootstrap.min.js"></script>
-            <script src="assets/js/vendor/jquery.countdown.min.js"></script>
-            <script src="assets/js/vendor/slick.min.js"></script>
-            <script src="assets/js/vendor/smoothscroll.js"></script>
-            <script src="assets/js/vendor/jquery-appear.js"></script>
-            <script src="assets/js/vendor/smooth-scrollbar.js"></script>
+$templatePath = __DIR__ . '/invitation-template.html';
+$template = file_get_contents($templatePath);
+if ($template === false) {
+    http_response_code(500);
+    echo 'No se pudo cargar la plantilla de invitacion.';
+    exit;
+}
 
-            <!-- Site Scripts -->
-            <script src="assets/js/app.js"></script>
-            
-    </body>
+$replaceMap = [
+    '__INVITATION_META_DESCRIPTION__' => htmlspecialchars($content['invitation_meta_description'], ENT_QUOTES, 'UTF-8'),
+    '__INVITATION_PAGE_TITLE__' => htmlspecialchars($content['invitation_page_title'], ENT_QUOTES, 'UTF-8'),
+    '__IMAGE_LOGO__' => htmlspecialchars($content['image_logo'], ENT_QUOTES, 'UTF-8'),
+    '__NAV_ABOUT__' => $content['nav_about'],
+    '__NAV_STORY__' => $content['nav_story'],
+    '__NAV_GALLERY__' => $content['nav_gallery'],
+    '__NAV_RSVP__' => $content['nav_rsvp'],
+    '__NAV_EVENTS__' => $content['nav_events'],
+    '__NAV_INVITATION__' => $content['nav_invitation'],
+    '__NAV_BLOGS__' => $content['nav_blogs'],
+    '__INVITATION_TITLE__' => $content['invitation_title'],
+    '__INVITATION_LABEL__' => $content['invitation_label'],
+    '__INVITATION_TEXT__' => $content['invitation_text'],
+    '__INVITATION_DATE__' => $content['invitation_date'],
+    '__INVITATION_COUNT_DAYS__' => $content['invitation_count_days'],
+    '__INVITATION_COUNT_HOURS__' => $content['invitation_count_hours'],
+    '__INVITATION_COUNT_MINUTES__' => $content['invitation_count_minutes'],
+    '__INVITATION_COUNT_SECONDS__' => $content['invitation_count_seconds'],
+    '__COUNT_DAYS_LABEL__' => $content['count_days'],
+    '__COUNT_HOURS_LABEL__' => $content['count_hours'],
+    '__COUNT_MINUTES_LABEL__' => $content['count_minutes'],
+    '__COUNT_SECONDS_LABEL__' => $content['count_seconds'],
+    '__INVITATION_LOCATION__' => $content['invitation_location'],
+    '__INVITATION_BUTTON__' => $content['invitation_button'],
+];
 
-</html>
+echo strtr($template, $replaceMap);
