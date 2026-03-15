@@ -34,7 +34,7 @@
       Init.preloader();
       Init.initializeSlick();
       Init.hamburgerMenu();
-      Init.countdownInit(".countdown", "2024/08/01");
+      Init.countdownInit(".countdown");
       Init.rsvpFormSubmit();
     },
     w: function (e) {
@@ -294,25 +294,41 @@
         }
       });
     },
-    countdownInit: function (countdownSelector, countdownTime) {
-      var eventCounter = $(countdownSelector);
-      if (eventCounter.length) {
-        eventCounter.countdown(countdownTime, function (e) {
+    countdownInit: function (countdownSelector) {
+      var eventCounters = $(countdownSelector);
+      if (!eventCounters.length) {
+        return;
+      }
+
+      eventCounters.each(function () {
+        var $counter = $(this);
+        var countdownTime = $counter.data("countdown");
+        if (!countdownTime) {
+          return;
+        }
+
+        var labels = {
+          days: $counter.data("labelDays") || "Days",
+          hours: $counter.data("labelHours") || "Hrs",
+          minutes: $counter.data("labelMinutes") || "Min",
+          seconds: $counter.data("labelSeconds") || "Sec",
+        };
+
+        $counter.countdown(countdownTime, function (e) {
           $(this).html(
             e.strftime(
-              '<li><h4 class="number">%D</h4><h5 class="number-text">Days</h5></li>\
-              <li><h4 class="number">%H</h4><h5 class="number-text">Hrs</h5></li>\
-              <li><h4 class="number">%M</h4><h5 class="number-text">Min</h5></li>\
-              <li><h4 class="number">%S</h4><h5 class="number-text">Sec</h5></li>'
+              '<li><h4 class="number">%D</h4><h5 class="number-text">' + labels.days + '</h5></li>\
+              <li><h4 class="number">%H</h4><h5 class="number-text">' + labels.hours + '</h5></li>\
+              <li><h4 class="number">%M</h4><h5 class="number-text">' + labels.minutes + '</h5></li>\
+              <li><h4 class="number">%S</h4><h5 class="number-text">' + labels.seconds + '</h5></li>'
             )
           );
         });
-      }
+      });
     },
   }
   Init.i();
 })(window, document, jQuery);
-
 
 
 
