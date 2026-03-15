@@ -245,8 +245,9 @@ try {
         .msg { padding: 12px; border-radius: 8px; margin-bottom: 16px; }
         .ok { background: #ecfdf3; color:#166534; }
         .err { background: #fef2f2; color:#991b1b; }
-        .grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
-        .section { grid-column: 1 / -1; background: #f7f5ff; border:1px dashed #c9c3e6; border-radius:10px; padding:12px 14px; }
+        .section-block { background:#fff; border:1px solid #e1deef; border-radius:12px; padding:16px; margin-bottom:18px; }
+        .section-grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top:14px; }
+        .section { background: #f7f5ff; border:1px dashed #c9c3e6; border-radius:10px; padding:12px 14px; }
         .section h2 { margin:0 0 4px; font-size:18px; }
         .section p { margin:0; font-size:13px; color:#4b4b62; }
         .field { background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px; }
@@ -279,43 +280,52 @@ try {
         <div class="msg err"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
     <?php endif; ?>
 
+    <?php
+    $sectionBuckets = [];
+    $sectionOrder = [];
+    foreach ($defaults as $key => $defaultValue) {
+        $sectionKey = sectionForKey($key);
+        if (!isset($sectionBuckets[$sectionKey])) {
+            $sectionBuckets[$sectionKey] = [];
+            $sectionOrder[] = $sectionKey;
+        }
+        $sectionBuckets[$sectionKey][] = [$key, $defaultValue];
+    }
+    ?>
     <form method="post" enctype="multipart/form-data">
-        <div class="grid">
-            <?php $currentSection = null; ?>
-            <?php foreach ($defaults as $key => $defaultValue): ?>
-                <?php
-                $sectionKey = sectionForKey($key);
-                if ($sectionKey !== $currentSection):
-                    $currentSection = $sectionKey;
-                    $sectionInfo = $sectionMeta[$sectionKey] ?? ['title' => 'Contenido', 'desc' => ''];
-                    ?>
-                    <div class="section">
-                        <h2><?= htmlspecialchars($sectionInfo['title'], ENT_QUOTES, 'UTF-8') ?></h2>
-                        <?php if ($sectionInfo['desc'] !== ''): ?>
-                            <p><?= htmlspecialchars($sectionInfo['desc'], ENT_QUOTES, 'UTF-8') ?></p>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-                <div class="field">
-                    <label for="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?></label>
-                    <textarea id="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>" name="content[<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>]"><?= htmlspecialchars((string)($content[$key] ?? $defaultValue), ENT_QUOTES, 'UTF-8') ?></textarea>
-                    <div class="guide">
-                        Gu&iacute;a: <?= htmlspecialchars(guideForKey($key, $guideByKey, $guideByPrefix), ENT_QUOTES, 'UTF-8') ?>
-                        &nbsp;Etiqueta: <code><?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?></code>
-                    </div>
-                    <?php if (isset($imageKeys[$key])): ?>
-                        <?php
-                        $currentImagePath = (string)($content[$key] ?? $defaultValue);
-                        $resolutionLabel = imageResolutionLabel($currentImagePath);
-                        ?>
-                        <input type="file" name="image_upload[<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>]" accept=".jpg,.jpeg,.png,.gif,.webp,.svg" style="margin-top:8px; width:100%;">
-                        <div class="image-meta">
-                            Resolución recomendada: <?= htmlspecialchars($resolutionLabel ?? 'No disponible', ENT_QUOTES, 'UTF-8') ?>
-                        </div>
+        <?php foreach ($sectionOrder as $sectionKey): ?>
+            <?php $sectionInfo = $sectionMeta[$sectionKey] ?? ['title' => 'Contenido', 'desc' => '']; ?>
+            <div class="section-block">
+                <div class="section">
+                    <h2><?= htmlspecialchars($sectionInfo['title'], ENT_QUOTES, 'UTF-8') ?></h2>
+                    <?php if ($sectionInfo['desc'] !== ''): ?>
+                        <p><?= htmlspecialchars($sectionInfo['desc'], ENT_QUOTES, 'UTF-8') ?></p>
                     <?php endif; ?>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <div class="section-grid">
+                    <?php foreach ($sectionBuckets[$sectionKey] as [$key, $defaultValue]): ?>
+                        <div class="field">
+                            <label for="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?></label>
+                            <textarea id="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>" name="content[<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>]"><?= htmlspecialchars((string)($content[$key] ?? $defaultValue), ENT_QUOTES, 'UTF-8') ?></textarea>
+                            <div class="guide">
+                                Gu&iacute;a: <?= htmlspecialchars(guideForKey($key, $guideByKey, $guideByPrefix), ENT_QUOTES, 'UTF-8') ?>
+                                &nbsp;Etiqueta: <code><?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?></code>
+                            </div>
+                            <?php if (isset($imageKeys[$key])): ?>
+                                <?php
+                                $currentImagePath = (string)($content[$key] ?? $defaultValue);
+                                $resolutionLabel = imageResolutionLabel($currentImagePath);
+                                ?>
+                                <input type="file" name="image_upload[<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>]" accept=".jpg,.jpeg,.png,.gif,.webp,.svg" style="margin-top:8px; width:100%;">
+                                <div class="image-meta">
+                                    Resoluci&oacute;n recomendada: <?= htmlspecialchars($resolutionLabel ?? 'No disponible', ENT_QUOTES, 'UTF-8') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
         <div class="actions">
             <button type="submit">Guardar contenido</button>
             <p class="hint">Si un campo se deja vacío, se restaura el valor por defecto.</p>
