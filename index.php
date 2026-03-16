@@ -67,6 +67,11 @@ function calculateCountdownParts(?DateTimeImmutable $target, ?DateTimeImmutable 
     ];
 }
 
+$countdownDate = buildCountdownDate(
+    (string)($content['event_1_date'] ?? ''),
+    (string)($content['event_1_time'] ?? '')
+);
+
 $rawCountdownDate = (string)($content['countdown_date'] ?? '');
 if (trim($rawCountdownDate) === '') {
     $rawCountdownDate = buildCountdownDate(
@@ -136,16 +141,9 @@ $replaceMap = [
     'Ella, una dama de hermosa cabellera y vestido blanco' => $content['about_paragraph_2'],
     'save the date' => $content['countdown_label'],
     'We are getting married' => $content['countdown_title'],
-    '__COUNTDOWN_DATE__' => htmlspecialchars($rawCountdownDate, ENT_QUOTES, 'UTF-8'),
-    '__COUNTDOWN_DAYS__' => $countdownParts['days'],
-    '__COUNTDOWN_HOURS__' => $countdownParts['hours'],
-    '__COUNTDOWN_MINUTES__' => $countdownParts['minutes'],
-    '__COUNTDOWN_SECONDS__' => $countdownParts['seconds'],
-    '__COUNT_DAYS_LABEL__' => htmlspecialchars($content['count_days'], ENT_QUOTES, 'UTF-8'),
-    '__COUNT_HOURS_LABEL__' => htmlspecialchars($content['count_hours'], ENT_QUOTES, 'UTF-8'),
-    '__COUNT_MINUTES_LABEL__' => htmlspecialchars($content['count_minutes'], ENT_QUOTES, 'UTF-8'),
-    '__COUNT_SECONDS_LABEL__' => htmlspecialchars($content['count_seconds'], ENT_QUOTES, 'UTF-8'),
+    'We are getting married' => $content['countdown_title'],
     'Clark Hall Main Bolouward, London' => $content['location'],
+    '__INVITATION_COUNTDOWN_DATE__' => $content['invitation_countdown_date'],
     'OUR STORY' => $content['story_label'],
     'Tale Of Love' => $content['story_title'],
     '22 JAN, 2021' => $content['story_1_date'],
@@ -183,7 +181,7 @@ $replaceMap = [
     'The Reception' => $content['event_2_title'],
     'Monday 11 Jan, 2026' => $content['event_2_date'],
     '4:00 PM' => $content['event_2_time'],
-    'Clark Hall Main Bolouward, 2<br>London 2' => $content['event_2_address'],
+    'Clark Hall Main Bolouward,<br>London' => $content['event_2_address'],
     'See Location 2' => $content['event_2_location_button'],
     'OUR Blog' => $content['blogs_label'],
     'latest news' => $content['blogs_title'],

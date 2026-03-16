@@ -100,7 +100,8 @@
                         <h6 class="mb-24">__INVITATION_LABEL__</h6>
                         <h5 class="mb-24 text">__INVITATION_TEXT__</h5>
                         <h3 class="mb-24">__INVITATION_DATE__</h3>
-                        <ul class="countdown unstyled">
+                        <h3 class="mb-24" style="display:none;">__INVITATION_COUNTDOWN_DATE__</h3>
+                        <ul class="countdown unstyled" data-text="__INVITATION_COUNTDOWN_DATE__" id="countdownId">
                             <li> 
                                 <h4 class="number">365</h4>
                                 <h5 class="number-text">Days</h5> 
@@ -133,7 +134,12 @@
             <script src="assets/js/vendor/slick.min.js"></script>
             <script src="assets/js/vendor/jquery-appear.js"></script>
             <script src="assets/js/vendor/smooth-scrollbar.js"></script>
-
+            
+            <!-- COUNTDOWN Scripts -->
+            <script>
+                window.INVITATION_COUNTDOWN_DATE = "__INVITATION_COUNTDOWN_DATE__";
+            </script>
+            
             <!-- Site Scripts -->
             <script src="assets/js/app.js"></script>
             

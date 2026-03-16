@@ -34,7 +34,15 @@
       Init.preloader();
       Init.initializeSlick();
       Init.hamburgerMenu();
-      Init.countdownInit(".countdown", "2026/12/14 14:00:00");
+      var countdownDate = $("#countdownId").attr("data-text");
+
+      if (countdownDate && countdownDate !== "__INVITATION_COUNTDOWN_DATE__") {
+          Init.countdownInit("#countdownId", countdownDate);
+      } else {
+          console.warn("Fecha de countdown inválida:", countdownDate);
+      }
+      
+      Init.countdownInit(".countdown", countdownDate);
       Init.rsvpFormSubmit();
     },
     w: function (e) {

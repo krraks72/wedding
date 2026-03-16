@@ -153,7 +153,8 @@
                                 <h5 class="date-text">save the date</h5>
                                 <h6>We are getting married</h6>
                                 <h3>Nov 6, 2026</h3>
-                                <ul class="countdown unstyled">
+                                <h3 class="mb-24" style="display:none;">__INVITATION_COUNTDOWN_DATE__</h3>
+                                <ul class="countdown unstyled" data-text="__INVITATION_COUNTDOWN_DATE__" id="countdownId">
                                     <li> 
                                         <h4 class="number">365</h4>
                                         <h5 class="number-text">Days</h5> 
@@ -331,8 +332,7 @@
                                                 <h4 class="mb-48">The Ceremony</h4>
                                                 <h6 class="mb-16">Sunday 10 Jan, 2026</h6>
                                                 <h6 class="mb-24">2:00 PM</h6>
-                                                <h6 class="mb-24">Clark Hall Main Bolouward, <br> London</h6>
-                                                <h6 class="mb-48">+01 234 456 789</h6>
+                                                <h6 class="mb-24">Clark Hall Main Bolouward,<br>London</h6>
                                                 <a href="__EVENT_1_LOCATION_URL__" class=" color-primary">See Location 1</a>
                                             </div>
                                         </div>
@@ -345,10 +345,9 @@
                                         <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 offset-xxl-0 offset-md-1 offset-sm-2">
                                             <div class="slide-content-block">
                                                 <h4 class="mb-48">The Reception</h4>
-                                                <h6 class="mb-16">Sunday 11 Jan, 2026</h6>
+                                                <h6 class="mb-16">Monday 11 Jan, 2026</h6>
                                                 <h6 class="mb-24">4:00 PM</h6>
-                                                <h6 class="mb-24">Clark Hall Main Bolouward, 2 <br> London 2</h6>
-                                                <h6 class="mb-48">+01 234 456 789 2</h6>
+                                                <h6 class="mb-24">Clark Hall Main Bolouward,<br>London</h6>
                                                 <a href="__EVENT_2_LOCATION_URL__" class=" color-primary">See Location 2</a>
                                             </div>
                                         </div>
@@ -437,6 +436,11 @@
             <script defer src="assets/js/vendor/slick.min.js"></script>
             <script defer src="assets/js/vendor/jquery-appear.js"></script>
             <script defer src="assets/js/vendor/smooth-scrollbar.js"></script>
+            
+            <!-- COUNTDOWN Scripts -->
+            <script>
+                window.INVITATION_COUNTDOWN_DATE = "__INVITATION_COUNTDOWN_DATE__";
+            </script>
 
             <!-- Site Scripts -->
             <script defer src="assets/js/app.js"></script>

@@ -131,7 +131,7 @@ if (!isAdminAuthenticated()) {
             .card { width:100%; max-width:420px; background:#fff; border-radius:12px; border:1px solid #ddd; padding:24px; }
             h1 { margin-top:0; font-size:24px; }
             label { display:block; margin-top:12px; margin-bottom:6px; font-weight:700; }
-            input { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; }
+            input { width:95%; padding:10px; border:1px solid #ccc; border-radius:8px; }
             button { margin-top:16px; width:100%; border:0; border-radius:8px; padding:12px; background:#4b3d8f; color:white; font-weight:700; cursor:pointer; }
             .err { background:#fef2f2; color:#991b1b; padding:10px; border-radius:8px; margin-bottom:12px; }
             .hint { font-size:12px; color:#555; margin-top:12px; }
@@ -255,7 +255,7 @@ try {
         .section-nav a:hover { border-color:#4b3d8f; color:#4b3d8f; }
         .field { background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px; }
         label { font-weight:700; display:block; margin-bottom:8px; }
-        textarea { width:100%; min-height:90px; border:1px solid #ccc; border-radius:6px; padding:8px; font-size:14px; }
+        textarea { width:95%; min-height:90px; border:1px solid #ccc; border-radius:6px; padding:8px; font-size:14px; }
         .guide { margin-top:8px; font-size:12px; color:#5a5a6a; background:#f3f4f6; border-radius:6px; padding:6px 8px; }
         .guide code { background:#e7e7f4; padding:1px 4px; border-radius:4px; }
         .actions { margin-top: 20px; }
