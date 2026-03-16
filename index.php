@@ -28,10 +28,55 @@ function buildCountdownDate(string $date, string $timeRange): string
     return trim($date . ' ' . $startTime);
 }
 
-$countdownDate = buildCountdownDate(
-    (string)($content['event_1_date'] ?? ''),
-    (string)($content['event_1_time'] ?? '')
-);
+function parseCountdownDate(string $rawDate): ?DateTimeImmutable
+{
+    $rawDate = trim($rawDate);
+    if ($rawDate === '') {
+        return null;
+    }
+    try {
+        return new DateTimeImmutable($rawDate);
+    } catch (Throwable $exception) {
+        return null;
+    }
+}
+
+function calculateCountdownParts(?DateTimeImmutable $target, ?DateTimeImmutable $now = null): array
+{
+    $now = $now ?? new DateTimeImmutable('now');
+    if (!$target) {
+        return [
+            'days' => '0',
+            'hours' => '00',
+            'minutes' => '00',
+            'seconds' => '00',
+        ];
+    }
+
+    $secondsLeft = max(0, $target->getTimestamp() - $now->getTimestamp());
+    $days = intdiv($secondsLeft, 86400);
+    $hours = intdiv($secondsLeft % 86400, 3600);
+    $minutes = intdiv($secondsLeft % 3600, 60);
+    $seconds = $secondsLeft % 60;
+
+    return [
+        'days' => (string)$days,
+        'hours' => str_pad((string)$hours, 2, '0', STR_PAD_LEFT),
+        'minutes' => str_pad((string)$minutes, 2, '0', STR_PAD_LEFT),
+        'seconds' => str_pad((string)$seconds, 2, '0', STR_PAD_LEFT),
+    ];
+}
+
+$rawCountdownDate = (string)($content['countdown_date'] ?? '');
+if (trim($rawCountdownDate) === '') {
+    $rawCountdownDate = buildCountdownDate(
+        (string)($content['event_1_date'] ?? ''),
+        (string)($content['event_1_time'] ?? '')
+    );
+}
+
+$countdownTarget = parseCountdownDate($rawCountdownDate);
+$countdownParts = calculateCountdownParts($countdownTarget);
 
 $templatePath = __DIR__ . '/index-content-template.html';
 $template = file_get_contents($templatePath);
@@ -64,6 +109,13 @@ $replaceMap = [
     'src="assets/media/blogs/Image.png"' => 'src="' . htmlspecialchars($content['image_blog_1'], ENT_QUOTES, 'UTF-8') . '"',
     'src="assets/media/blogs/Image-1.png"' => 'src="' . htmlspecialchars($content['image_blog_2'], ENT_QUOTES, 'UTF-8') . '"',
     'src="assets/media/blogs/Image-2.png"' => 'src="' . htmlspecialchars($content['image_blog_3'], ENT_QUOTES, 'UTF-8') . '"',
+    '__NAV_ABOUT__' => $content['nav_about'],
+    '__NAV_STORY__' => $content['nav_story'],
+    '__NAV_GALLERY__' => $content['nav_gallery'],
+    '__NAV_RSVP__' => $content['nav_rsvp'],
+    '__NAV_EVENTS__' => $content['nav_events'],
+    '__NAV_INVITATION__' => $content['nav_invitation'],
+    '__NAV_BLOGS__' => $content['nav_blogs'],
     'ABOUT US' => $content['nav_about'],
     'STORY' => $content['nav_story'],
     'GALLERY' => $content['nav_gallery'],
@@ -84,15 +136,15 @@ $replaceMap = [
     'Ella, una dama de hermosa cabellera y vestido blanco' => $content['about_paragraph_2'],
     'save the date' => $content['countdown_label'],
     'We are getting married' => $content['countdown_title'],
-    '__COUNTDOWN_DATE__' => htmlspecialchars($countdownDate, ENT_QUOTES, 'UTF-8'),
+    '__COUNTDOWN_DATE__' => htmlspecialchars($rawCountdownDate, ENT_QUOTES, 'UTF-8'),
+    '__COUNTDOWN_DAYS__' => $countdownParts['days'],
+    '__COUNTDOWN_HOURS__' => $countdownParts['hours'],
+    '__COUNTDOWN_MINUTES__' => $countdownParts['minutes'],
+    '__COUNTDOWN_SECONDS__' => $countdownParts['seconds'],
     '__COUNT_DAYS_LABEL__' => htmlspecialchars($content['count_days'], ENT_QUOTES, 'UTF-8'),
     '__COUNT_HOURS_LABEL__' => htmlspecialchars($content['count_hours'], ENT_QUOTES, 'UTF-8'),
     '__COUNT_MINUTES_LABEL__' => htmlspecialchars($content['count_minutes'], ENT_QUOTES, 'UTF-8'),
     '__COUNT_SECONDS_LABEL__' => htmlspecialchars($content['count_seconds'], ENT_QUOTES, 'UTF-8'),
-    'Days' => $content['count_days'],
-    'Hrs' => $content['count_hours'],
-    'Min' => $content['count_minutes'],
-    'Sec' => $content['count_seconds'],
     'Clark Hall Main Bolouward, London' => $content['location'],
     'OUR STORY' => $content['story_label'],
     'Tale Of Love' => $content['story_title'],
